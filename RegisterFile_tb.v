@@ -40,10 +40,41 @@ module RegisterFile_tb();
 		forever #10 Clk <= ~Clk;
 	end
 
+    integer i;
+    integer j;
 	initial begin
 	
-    /* Please fill in the implementation here... */
-	
+        RegWrite <= 0;
+        WriteRegister <= 5'b0;
+        WriteData <= 32'b0;
+        ReadRegister1 <= 5'b0;
+        ReadRegister2 <= 5'b0;
+        
+        
+        #20;
+        
+        RegWrite <= 1'b1;
+        
+        for (i = 8; i <= 25; i = i + 1) begin
+            WriteRegister <= i;
+            WriteData <= i * 32'h11111111;
+            #20;
+        end
+        
+        RegWrite <= 1'b0;
+        
+        #20
+        
+        for (j = 8; j <= 24; j = j + 2) begin
+            ReadRegister1 <= j;
+            ReadRegister2 <= j + 1;
+            #20;
+            
+            $display("Read from Register %0d: %h", j, ReadData1);
+            $display("Read from Register %0d: %h", j+1, ReadData2);
+        end
+        
+        
 	end
 
 endmodule
