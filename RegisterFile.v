@@ -5,7 +5,7 @@
 // 
 //
 //
-// Student(s) Name and Last Name: FILL IN YOUR INFO HERE!
+// Student(s) Name and Last Name: Megan Zupancic and Annie Thiel
 //
 //
 // Module - register_file.v
@@ -49,7 +49,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 module RegisterFile(ReadRegister1, ReadRegister2, WriteRegister, WriteData, RegWrite, Clk, ReadData1, ReadData2);
-
-	/* Please fill in the implementation here... */
+    input[4:0] ReadRegister1, ReadRegister2;
+    input[4:0] WriteRegister;
+    input[31:0] WriteData;
+    input RegWrite;
+    input Clk;
+    output reg [31:0] ReadData1, ReadData2;
+    
+    reg [31:0] RegisterFile[31:0];
+    
+	always @(negedge Clk) begin
+	   ReadData1 <= RegisterFile[ReadRegister1];
+	   ReadData2 <= RegisterFile[ReadRegister2];
+	end
+	
+	always @(posedge Clk) begin
+	   if (RegWrite == 1) begin
+	       RegisterFile[WriteRegister] <= WriteData;
+	   end
+	end
 
 endmodule
+
+
+
+
+
+
