@@ -59,6 +59,7 @@ module RegisterFile_tb();
             WriteRegister <= i;
             WriteData <= i * 32'h11111111;
             #20;
+            $display("Writing %h to Register %0d", WriteData, WriteRegister);
         end
         
         RegWrite <= 1'b0;
