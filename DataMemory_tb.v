@@ -17,7 +17,6 @@ module DataMemory_tb();
 
     wire [31:0] ReadData;
 
-    // Instantiate the DataMemory module
     DataMemory u0(
         .Address(Address), 
         .WriteData(WriteData), 
@@ -27,15 +26,15 @@ module DataMemory_tb();
         .ReadData(ReadData)
     ); 
 
-    // Clock generation
-    initial begin
-        Clk <= 1'b0;
-        forever #10 Clk <= ~Clk; // 20 ns clock period
-    end
+	initial begin
+		Clk <= 1'b0;
+		forever #10 Clk <= ~Clk;
+	end
 
-    // Test sequence
-    initial begin
-        // Initialize signals
+    integer i;
+	initial begin
+	
+    // Initialize signals
         MemWrite = 0;
         MemRead = 0;
 
@@ -72,7 +71,7 @@ module DataMemory_tb();
         $display("Read from Address 4: %h", ReadData); // Should print BEEFCAFE
 
         // Test 5: Write and read multiple values
-        for (integer i = 0; i < 5; i = i + 1) begin
+        for (i = 0; i < 5; i = i + 1) begin
             Address = 32'h00000008 + (i * 4); // Address 8, 12, 16, 20, 24
             WriteData = 32'hAABBCCDD + i; // Different data to write
             MemWrite = 1; // Enable write
@@ -88,9 +87,7 @@ module DataMemory_tb();
             $display("Read from Address %0h: %h", Address, ReadData); // Should print the written data
         end
 
-        // End simulation
-        #100; // Wait some time before ending
-        $finish; // End simulation
-    end
+	end
 
 endmodule
+
