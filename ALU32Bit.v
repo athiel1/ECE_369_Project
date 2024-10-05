@@ -37,5 +37,20 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 
     /* Please fill in the implementation here... */
 
+	// Add: add, addi, lw, sw, sb, lh, lb, sh
+	// Subtract: sub, beq, bne, slt, slti
+	// Multiply: mul
+	// Branch if greater than or equal to zero: bgez
+	// Branch on greater than zero: bgtz
+	// Branch on less than or equal to zero: blez
+	// Branch on less than zero: bltz
+	// Logical ands: and, andi
+	// Logical or: or, ori
+	// Logical nor: nor
+	// Logical xor: xor, xori
+	// Shift left logical: sll
+	// Shift right logical: srl
+	
+
 endmodule
 
