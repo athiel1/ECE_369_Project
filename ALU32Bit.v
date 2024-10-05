@@ -50,7 +50,44 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 	// Logical xor: xor, xori
 	// Shift left logical: sll
 	// Shift right logical: srl
-	
+
+	always @(ALUControl, A, B) begin
+		case (ALUControl)
+			4'b0000: // ADD 
+				ALUResult <= A + B;
+			4'b0001: // SUB
+				ALUResult <= A - B;  // might have to change
+			4'b0010: // MUL
+				ALUResult <= A * B;
+			4'b0011: // bgez
+				ALUResult = (A >= 0) ? 1 : 0;
+			4'b0100: // bgtz
+				ALUResult = (A > 0) ? 1 : 0;
+			4'b0101: // blez
+				ALUResult = (A <= 0) ? 1 : 0;
+			4'b0110: // bltz
+				ALUResult = (A < 0) ? 1 : 0;
+			4'b0111: // AND
+				ALUResult <= A & B;
+			4'b1000: // OR
+				ALUResult <= A | B;
+			4'b1001: // NOR
+				ALUResult <= ~(A | B);
+			4'b1010: // XOR
+				ALUResult <= A ^ B;
+			4'b1011: // sll
+				ALUResult <= A << (B);
+			4'b1111: // srl
+				ALUResult <= A >> (B);	
+			
+	end
 
 endmodule
+
+
+
+
+
+
+			
 
