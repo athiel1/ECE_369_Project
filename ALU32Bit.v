@@ -79,7 +79,12 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 				ALUResult <= A << (B);
 			4'b1111: // srl
 				ALUResult <= A >> (B);	
+		endcase
 			
+	end
+
+	always @(ALUResult) begin
+		Zero = (ALUResult = 0) ? 1 : 0;
 	end
 
 endmodule
