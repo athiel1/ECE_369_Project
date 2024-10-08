@@ -1,0 +1,22 @@
+CONTROLLER NOTES 
+
+Inputs:
+  - Clock
+  - Rest
+
+Instructions:
+- Add
+  - RegDst
+  - ALUOp
+  - ALUSrc
+  - Zero
+  - Branch
+  - MemWrite
+  - MemRead
+  - PCSrc
+  - MemtoReg
+  - RegWrite
+  
+- 
+
+  
