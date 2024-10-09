@@ -28,7 +28,7 @@ module controller(Clk, Rst, Instruction, ALUControl);
     wire ALUOp; 
     wire EX_enable;
     wire MEM_enable;
-    wire WD_enable;
+    wire WB_enable;
     
     output reg ALUControl;
     // ALU Controller / ALUOp ??
@@ -36,13 +36,13 @@ module controller(Clk, Rst, Instruction, ALUControl);
 
     assign EX_enable = 0;
     assign MEM_enable = 0;
-    assign WD_enable = 0;
+    assign WB_enable = 0;
     
     always @(posedge Clk) begin
         if (Rst) begin
            assign EX_enable = 0;
            assign MEM_enable = 0;
-           assign WD_enable = 0; 
+           assign WB_enable = 0; 
         end
     end
     
