@@ -10,7 +10,7 @@ module IF_ID(PC_in, readReg1_in, readReg2_in, signExtend_in, instr_rt_in, instr_
   input [4:0] readReg2_in;
   input [31:0] signExtend_in;
   input [4:0] instr_rt_in;
-  input [4:0] instr_rd_in;
+  input [15:0] instr_rd_in;
   input [31:0] control_WB_in;
   input [31:0] control_M_in;
   input [31:0] control_EX_in;  
