@@ -21,7 +21,7 @@ module IF_ID(PC_in, readReg1_in, readReg2_in, signExtend_in, instr_rt_in, instr_
   output [4:0] readReg2_out;
   output [31:0] signExtend_out;
   output [4:0] instr_rt_out;
-  output [4:0] instr_rd_out;
+  output [15:0] instr_rd_out;
   output [31:0] control_WB_out;
   output [31:0] control_M_out;
   output RegDst;
