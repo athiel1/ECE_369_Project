@@ -24,32 +24,37 @@ module controller(Clk, Rst, Instruction, ALUControl);
     input wire Clk;
     input wire Rst;
     input [31:0] Instruction;
-    
-    wire ALUOp; 
-    wire EX_enable;
-    wire MEM_enable;
-    wire WB_enable;
-    
-    output reg ALUControl;
-    // ALU Controller / ALUOp ??
-    
 
-    assign EX_enable = 0;
-    assign MEM_enable = 0;
-    assign WB_enable = 0;
+    wire [5:0] operation;
+    wire [5:0] funct;
     
-    always @(posedge Clk) begin
-        if (Rst) begin
-           assign EX_enable = 0;
-           assign MEM_enable = 0;
-           assign WB_enable = 0; 
-        end
-    end
+    output RegDst;
+    output ALUOp;
+    output ALUZero;
+    output ALUSrc;
+    output Branch;
+    output MemRead;
+    output MemtoReg;
+    output RegWrite;
+    output PCSrc;
+
+    operation = Instruction[31:26];
+    funct = Instruction[5:0];
+
+    RegDst = 0;
+    ALUOp = 0;
+    ALUZero = 0;
+    ALUSrc = 0;
+    Branch = 0;
+    MemRead = 0;
+    MemtoReg = 0;
+    RegWrite = 0;
+    PCSrc = 0;
     
     always @(Instruction) begin
         case (Instruction[31:26]) 
-            5'b00000: // R-Type
-                EX_enable <= 1;
+            6'b00000: // R-Type
+                ALUOp = funct;
         endcase
     end
 
