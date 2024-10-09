@@ -53,31 +53,23 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 
 	always @(ALUControl, A, B) begin
 		case (ALUControl)
-			4'b0000: // ADD 
+			6'b100000: // ADD 
 				ALUResult <= A + B;
-			4'b0001: // SUB
+			6'b100010: // SUB
 				ALUResult <= A - B;  // might have to change
-			4'b0010: // MUL
+			6'b011000: // MUL
 				ALUResult <= A * B;
-			4'b0011: // bgez
-				ALUResult = (A >= 0) ? 1 : 0;
-			4'b0100: // bgtz
-				ALUResult = (A > 0) ? 1 : 0;
-			4'b0101: // blez
-				ALUResult = (A <= 0) ? 1 : 0;
-			4'b0110: // bltz
-				ALUResult = (A < 0) ? 1 : 0;
-			4'b0111: // AND
+			6'b100100: // AND
 				ALUResult <= A & B;
-			4'b1000: // OR
+			6'b100101: // OR
 				ALUResult <= A | B;
-			4'b1001: // NOR
+			6'b100111: // NOR
 				ALUResult <= ~(A | B);
-			4'b1010: // XOR
+			6'b100110: // XOR
 				ALUResult <= A ^ B;
-			4'b1011: // sll
+			6'b000000: // sll
 				ALUResult <= A << (B);
-			4'b1111: // srl
+			6'b000010: // srl
 				ALUResult <= A >> (B);	
 		endcase
 			
