@@ -54,7 +54,41 @@ module controller(Clk, Rst, Instruction, ALUControl);
     always @(Instruction) begin
         case (Instruction[31:26]) 
             6'b00000: // R-Type
+                RegDst = 1;
                 ALUOp = funct;
+                ALUZer0 = 0;     //doesn't matter
+                ALUScr = 0;
+                Branch = 0;      //doesn't matter
+                MemRead = 0;     //doesn't matter
+                MemWrite = 1;
+                MemtoReg = 1;
+                RegWrite = 1;
+                PCSrc = 0;       //doesn't matter
+
+            6'100011: // Load
+                RegDst = 0;
+                ALUOp = 6'b100000;
+                ALUZer0 = 0;     //doesn't matter
+                ALUScr = 1;
+                Branch = 0;      //doesn't matter
+                MemRead = 1;
+                MemWrite = 0;
+                MemtoReg = 0;
+                RegWrite = 1;
+                PCSrc = 0;       //doesn't matter
+
+            6'101011: // Store
+                RegDst = 0;
+                ALUOp = 6'b100000;
+                ALUZer0 = 0;     //doesn't matter
+                ALUScr = 1;
+                Branch = 0;      //doesn't matter
+                MemRead = 1;
+                MemWrite = 0;
+                MemtoReg = 0;
+                RegWrite = 1;
+                PCSrc = 0;       //doesn't matter
+            
         endcase
     end
 
