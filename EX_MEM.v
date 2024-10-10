@@ -23,9 +23,6 @@ module EX_MEM(WB_in, M_in, addResult_in, ALUZero_in, ALUResult_in, readReg2_in, 
 
   always @(*) begin
     WB_out = WB_in;
-    Branch = ???
-    MemRead = ???
-    MemWrite = ???
     addResult_out = addResult_in;
     ALUZero_out = ALUZero_in;
     ALUResult_out = ALUResult_in;
