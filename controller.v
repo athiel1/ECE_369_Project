@@ -96,9 +96,9 @@ module controller(Clk, Rst, Instruction, ALUControl);
                 ALUScr = 1;
                 Branch = 1;     
                 MemRead = 0;     //doesn't matter
-                MemWrite = 0;    //doesn't matter
+                MemWrite = 0;    //has to be 0 so we don't overwrite
                 MemtoReg = 0;    //doesn't matter
-                RegWrite = 0;    //doesn't matter
+                RegWrite = 0;    //has to be zero so we don't overwrite
                 PCSrc = 1;       
             
         endcase
