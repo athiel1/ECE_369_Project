@@ -83,11 +83,23 @@ module controller(Clk, Rst, Instruction, ALUControl);
                 ALUZer0 = 0;     //doesn't matter
                 ALUScr = 1;
                 Branch = 0;      //doesn't matter
-                MemRead = 1;
-                MemWrite = 0;
-                MemtoReg = 0;
-                RegWrite = 1;
+                MemRead = 0;
+                MemWrite = 1;
+                MemtoReg = 0;    //doesn't matter
+                RegWrite = 0;
                 PCSrc = 0;       //doesn't matter
+
+            6'000100: // Branch
+                RegDst = 0;
+                ALUOp = 6'b100000;   // doesn't matter?
+                ALUZer0 = 1;     
+                ALUScr = 1;
+                Branch = 1;     
+                MemRead = 0;     //doesn't matter
+                MemWrite = 0;    //doesn't matter
+                MemtoReg = 0;    //doesn't matter
+                RegWrite = 0;    //doesn't matter
+                PCSrc = 1;       
             
         endcase
     end
