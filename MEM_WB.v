@@ -14,8 +14,6 @@ module MEM_WB(WB_in, readMem_in, ALUResult_in, muxResult_in, RegWrite, MemtoRead
   output [31:0] muxResult_out;
 
   always @(*) begin
-    RegWrite = ???     //FIXME
-    MemtoRead = ???     //FIXME
     readMem_out = readMem_in;
     ALUResult_out = ALUResult_in;
     muxResult_out = muxResult_in;
