@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module controller(Clk, Rst, Instruction, ALUControl);
+module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemtoReg, RegWrite, PCSrc);
     input wire Clk;
     input wire Rst;
     input [31:0] Instruction;
@@ -28,36 +28,38 @@ module controller(Clk, Rst, Instruction, ALUControl);
     wire [5:0] operation;
     wire [5:0] funct;
     
-    output RegDst;
-    output ALUOp;
-    output ALUZero;
-    output ALUSrc;
-    output Branch;
-    output MemRead;
-    output MemtoReg;
-    output RegWrite;
-    output PCSrc;
+    output reg RegDst;
+    output reg [5:0] ALUOp;
+    output reg ALUZero;
+    output reg ALUSrc;
+    output reg Branch;
+    output reg MemRead;
+    output reg MemtoReg;
+    output reg RegWrite;
+    output reg PCSrc;
 
-    operation = Instruction[31:26];
-    funct = Instruction[5:0];
+    assign operation = Instruction[31:26];
+    assign funct = Instruction[5:0];
 
-    RegDst = 0;
-    ALUOp = 0;
-    ALUZero = 0;
-    ALUSrc = 0;
-    Branch = 0;
-    MemRead = 0;
-    MemtoReg = 0;
-    RegWrite = 0;
-    PCSrc = 0;
-    
+    always @(posedge Clk, Rst) begin
+            assign RegDst = 0;
+            assign ALUOp = 0;
+            assign ALUZero = 0;
+            assign ALUSrc = 0;
+            assign Branch = 0;
+            assign MemRead = 0;
+            assign MemtoReg = 0;
+            assign RegWrite = 0;
+            assign PCSrc = 0;
+    end
+
     always @(Instruction) begin
         case (Instruction[31:26]) 
             6'b00000: // R-Type
                 RegDst = 1;
-                ALUOp = funct;
-                ALUZer0 = 0;     //doesn't matter
-                ALUScr = 0;
+                ALUOp = funct; 
+                ALUZero = 0;     //doesn't matter
+                ALUSrc = 0;
                 Branch = 0;      //doesn't matter
                 MemRead = 0;     //doesn't matter
                 MemWrite = 1;
@@ -68,8 +70,8 @@ module controller(Clk, Rst, Instruction, ALUControl);
             6'100011: // Load
                 RegDst = 0;
                 ALUOp = 6'b100000;
-                ALUZer0 = 0;     //doesn't matter
-                ALUScr = 1;
+                ALUZero = 0;     //doesn't matter
+                ALUSrc = 1;
                 Branch = 0;      //doesn't matter
                 MemRead = 1;
                 MemWrite = 0;
@@ -80,8 +82,8 @@ module controller(Clk, Rst, Instruction, ALUControl);
             6'101011: // Store
                 RegDst = 0;
                 ALUOp = 6'b100000;
-                ALUZer0 = 0;     //doesn't matter
-                ALUScr = 1;
+                ALUZero = 0;     //doesn't matter
+                ALUSrc = 1;
                 Branch = 0;      //doesn't matter
                 MemRead = 0;
                 MemWrite = 1;
@@ -92,8 +94,8 @@ module controller(Clk, Rst, Instruction, ALUControl);
             6'000100: // Branch
                 RegDst = 0;
                 ALUOp = 6'b100000;   // doesn't matter?
-                ALUZer0 = 1;     
-                ALUScr = 1;
+                ALUZero = 1;     
+                ALUSrc = 1;
                 Branch = 1;     
                 MemRead = 0;     //doesn't matter
                 MemWrite = 0;    //has to be 0 so we don't overwrite
