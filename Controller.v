@@ -41,7 +41,8 @@ module controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, B
 
     assign operation = Instruction[31:26];
 
-    always @(posedge Clk, Rst) begin
+    always @(posedge Clk or Rst) begin
+        if (Rst) begin
             RegDst <= 0;
             ALUOp <= 0;
             ALUZero <= 0;
@@ -52,15 +53,25 @@ module controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, B
             MemtoReg <= 0;
             RegWrite <= 0;
             PCSrc <= 0;
-    end
-
-    always @(Instruction) begin
+        end 
+        else begin
+            RegDst <= 0;
+            ALUOp <= 0;
+            ALUZero <= 0;
+            ALUSrc <= 0;
+            Branch <= 0;
+            MemRead <= 0;
+            MemWrite <= 0;
+            MemtoReg <= 0;
+            RegWrite <= 0;
+            PCSrc <= 0;     
+    
         case (operation) 
             6'b000000: begin // R-Type
-                RegDst = 1'b1;
+                RegDst = 1;
                 ALUOp = 2'b00;
-                ALUZero = 1'b0;     //doesn't matter
-                ALUSrc = 1'b0;
+                ALUZero = 0;     //doesn't matter
+                ALUSrc = 0;
                 Branch = 0;      //doesn't matter
                 MemRead = 0;     //doesn't matter
                 MemWrite = 0;
@@ -105,6 +116,7 @@ module controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, B
                 PCSrc = Branch & Zero;       
             end
         endcase
+        end
     end
 
 
