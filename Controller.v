@@ -55,9 +55,9 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
 
     always @(Instruction) begin
         case (Instruction[31:26]) 
-            6'b00000: // R-Type
+            6'b000000: // R-Type
                 RegDst = 1;
-                ALUOp <= funct; 
+                ALUOp = funct; 
                 ALUZero = 0;     //doesn't matter
                 ALUSrc = 0;
                 Branch = 0;      //doesn't matter
@@ -67,7 +67,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 RegWrite = 1;
                 PCSrc = 0;       //doesn't matter
 
-            6'100011: // Load
+            6'b100011: // Load
                 RegDst = 0;
                 ALUOp = 6'b100000;
                 ALUZero = 0;     //doesn't matter
@@ -79,7 +79,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 RegWrite = 1;
                 PCSrc = 0;       //doesn't matter
 
-            6'101011: // Store
+            6'b101011: // Store
                 RegDst = 0;
                 ALUOp = 6'b100000;
                 ALUZero = 0;     //doesn't matter
@@ -91,7 +91,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 RegWrite = 0;
                 PCSrc = 0;       //doesn't matter
 
-            6'000100: // Branch
+            6'b000100: // Branch
                 RegDst = 0;
                 ALUOp = 6'b100000;   // doesn't matter?
                 ALUZero = 1;     
@@ -108,7 +108,3 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
 
 
 endmodule
-
-
-
-
