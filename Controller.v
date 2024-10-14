@@ -25,11 +25,9 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
     input wire Rst;
     input [31:0] Instruction;
 
-    wire [5:0] operation;
-    wire [5:0] funct;
     
     output reg RegDst;
-    output reg [5:0] ALUOp;
+    output reg [1:0] ALUOp;
     output reg ALUZero;
     output reg ALUSrc;
     output reg Branch;
@@ -39,8 +37,6 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
     output reg RegWrite;
     output reg PCSrc;
 
-    assign operation = Instruction[31:26];
-    assign funct = Instruction[5:0];
 
     always @(posedge Clk, Rst) begin
             RegDst <= 0;
@@ -59,7 +55,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
         case (Instruction[31:26]) 
             6'b000000: // R-Type
                 RegDst = 1;
-                ALUOp = funct; 
+                ALUOp = 2'b00; 
                 ALUZero = 0;     //doesn't matter
                 ALUSrc = 0;
                 Branch = 0;      //doesn't matter
@@ -71,7 +67,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
 
             6'b100011: // Load
                 RegDst = 0;
-                ALUOp = 6'b100000;
+                ALUOp = 2'b01;
                 ALUZero = 0;     //doesn't matter
                 ALUSrc = 1;
                 Branch = 0;      //doesn't matter
@@ -83,7 +79,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
 
             6'b101011: // Store
                 RegDst = 0;
-                ALUOp = 6'b100000;
+                ALUOp = 2'b01;
                 ALUZero = 0;     //doesn't matter
                 ALUSrc = 1;
                 Branch = 0;      //doesn't matter
@@ -95,7 +91,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
 
             6'b000100: // Branch
                 RegDst = 0;
-                ALUOp = 6'b100000;   // doesn't matter?
+                ALUOp = 2'b10;   // doesn't matter?
                 ALUZero = 1;     
                 ALUSrc = 0;
                 Branch = 1;     
