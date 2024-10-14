@@ -55,19 +55,19 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
 
     always @(Instruction) begin
         case (operation) 
-            6'b000000: // R-Type
-                RegDst = 1;
-                ALUOp = 2'b00; 
-                ALUZero = 0;     //doesn't matter
-                ALUSrc = 0;
+            6'b000000: begin // R-Type
+                RegDst = 1'b1;
+                ALUOp = 2'b00;
+                ALUZero = 1'b0;     //doesn't matter
+                ALUSrc = 1'b0;
                 Branch = 0;      //doesn't matter
                 MemRead = 0;     //doesn't matter
                 MemWrite = 0;
                 MemtoReg = 1;
                 RegWrite = 1;
                 PCSrc = 0;       //doesn't matter
-
-            6'b100011: // Load
+            end
+            6'b100011: begin// Load
                 RegDst = 0;
                 ALUOp = 2'b01;
                 ALUZero = 0;     //doesn't matter
@@ -78,8 +78,8 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 MemtoReg = 1;
                 RegWrite = 1;
                 PCSrc = 0;       //doesn't matter
-
-            6'b101011: // Store
+            end
+            6'b101011: begin// Store
                 RegDst = 0;
                 ALUOp = 2'b01;
                 ALUZero = 0;     //doesn't matter
@@ -90,8 +90,8 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 MemtoReg = 0;    //doesn't matter
                 RegWrite = 0;
                 PCSrc = 0;       //doesn't matter
-
-            6'b000100: // Branch
+            end
+            6'b000100: begin// Branch
                 RegDst = 0;
                 ALUOp = 2'b10;   // doesn't matter?
                 ALUZero = 1;     
@@ -102,7 +102,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 MemtoReg = 0;    //doesn't matter
                 RegWrite = 0;    //has to be zero so we don't overwrite
                 PCSrc = 1;       
-            
+            end
         endcase
     end
 
