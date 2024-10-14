@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemtoReg, RegWrite, PCSrc);
+module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc);
     input wire Clk;
     input wire Rst;
     input [31:0] Instruction;
@@ -34,6 +34,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
     output reg ALUSrc;
     output reg Branch;
     output reg MemRead;
+    output reg MemWrite;
     output reg MemtoReg;
     output reg RegWrite;
     output reg PCSrc;
@@ -48,6 +49,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
             ALUSrc <= 0;
             Branch <= 0;
             MemRead <= 0;
+            MemWrite <= 0;
             MemtoReg <= 0;
             RegWrite <= 0;
             PCSrc <= 0;
