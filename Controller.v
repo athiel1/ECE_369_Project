@@ -64,7 +64,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 ALUSrc = 0;
                 Branch = 0;      //doesn't matter
                 MemRead = 0;     //doesn't matter
-                MemWrite = 1;
+                MemWrite = 0;
                 MemtoReg = 1;
                 RegWrite = 1;
                 PCSrc = 0;       //doesn't matter
@@ -77,7 +77,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 Branch = 0;      //doesn't matter
                 MemRead = 1;
                 MemWrite = 0;
-                MemtoReg = 0;
+                MemtoReg = 1;
                 RegWrite = 1;
                 PCSrc = 0;       //doesn't matter
 
@@ -97,7 +97,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 RegDst = 0;
                 ALUOp = 6'b100000;   // doesn't matter?
                 ALUZero = 1;     
-                ALUSrc = 1;
+                ALUSrc = 0;
                 Branch = 1;     
                 MemRead = 0;     //doesn't matter
                 MemWrite = 0;    //has to be 0 so we don't overwrite
