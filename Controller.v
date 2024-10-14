@@ -20,10 +20,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc);
+module controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc);
     input wire Clk;
     input wire Rst;
     input [31:0] Instruction;
+    input Zero;
 
     wire [5:0] operation;
     
@@ -67,7 +68,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 RegWrite = 1;
                 PCSrc = 0;       //doesn't matter
             end
-            6'b100011: begin// Load
+            6'b100011: begin // Load
                 RegDst = 0;
                 ALUOp = 2'b01;
                 ALUZero = 0;     //doesn't matter
@@ -79,7 +80,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 RegWrite = 1;
                 PCSrc = 0;       //doesn't matter
             end
-            6'b101011: begin// Store
+            6'b101011: begin // Store
                 RegDst = 0;
                 ALUOp = 2'b01;
                 ALUZero = 0;     //doesn't matter
@@ -91,7 +92,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 RegWrite = 0;
                 PCSrc = 0;       //doesn't matter
             end
-            6'b000100: begin// Branch
+            6'b000100: begin // Branch
                 RegDst = 0;
                 ALUOp = 2'b10;   // doesn't matter?
                 ALUZero = 1;     
@@ -101,7 +102,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 MemWrite = 0;    //has to be 0 so we don't overwrite
                 MemtoReg = 0;    //doesn't matter
                 RegWrite = 0;    //has to be zero so we don't overwrite
-                PCSrc = 1;       
+                PCSrc = Branch & Zero;       
             end
         endcase
     end
