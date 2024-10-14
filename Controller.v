@@ -25,6 +25,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
     input wire Rst;
     input [31:0] Instruction;
 
+    wire [5:0] operation;
     
     output reg RegDst;
     output reg [1:0] ALUOp;
@@ -37,6 +38,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
     output reg RegWrite;
     output reg PCSrc;
 
+    assign operation = Instruction[31:26];
 
     always @(posedge Clk, Rst) begin
             RegDst <= 0;
@@ -52,7 +54,7 @@ module controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
     end
 
     always @(Instruction) begin
-        case (Instruction[31:26]) 
+        case (operation) 
             6'b000000: // R-Type
                 RegDst = 1;
                 ALUOp = 2'b00; 
