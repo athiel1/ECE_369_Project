@@ -8,7 +8,7 @@ module top_level_controller_test(
     output wire [1:0] ALUOp,
     output wire ALUSrc,
     output wire RegWrite,
-    output wire [2:0] ALUControl
+    output wire [5:0] ALUControl
 );
 
     // Wires to connect Controller and ALUControl
@@ -42,7 +42,7 @@ module top_level_controller_test(
     // Instantiate the ALUControl
     ALUControl aluCtrl (
         .ALUOp(ALUOp),
-        .Funct(Instruction[5:0]), // Assuming funct is part of the instruction
+        .funct(Instruction[5:0]), // Assuming funct is part of the instruction
         .ALUControl(ALUControl)
     );
 
