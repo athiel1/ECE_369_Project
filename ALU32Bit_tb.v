@@ -76,7 +76,7 @@ module ALU32Bit_tb();
         $display("SRL: A=%h, B=%h, ALUResult=%h, Zero=%b", A, B, ALUResult, Zero);
 
 	// Test Branch
-        ALUControl = 6'b; // Branch
+        ALUControl = 6'b100010; // Branch
         #10;
         $display("XOR: A=%h, B=%h, ALUResult=%h, Zero=%b", A, B, ALUResult, Zero);
 
