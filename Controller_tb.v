@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module controller_tb;
+module Controller_tb;
 
     // Inputs
     reg Clk;
@@ -21,7 +21,7 @@ module controller_tb;
     wire PCSrc;
 
     // Instantiate the Unit Under Test (UUT)
-    controller uut (
+    Controller uut (
         .Clk(Clk), 
         .Rst(Rst), 
         .Instruction(Instruction), 
@@ -86,7 +86,7 @@ module controller_tb;
         // Add more tests for other instructions if necessary...
 
         // Finish the simulation
-        $stop;
+        // $stop;
     end
 
 endmodule
