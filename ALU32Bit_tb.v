@@ -37,7 +37,7 @@ module ALU32Bit_tb();
         $display("ADD: A=%h, B=%h, ALUResult=%h, Zero=%b", A, B, ALUResult, Zero);
 
         // Test SUB
-        ALUControl = 6'100010; // SUB
+        ALUControl = 6'b100010; // SUB
         #10;
         $display("SUB: A=%h, B=%h, ALUResult=%h, Zero=%b", A, B, ALUResult, Zero);
 
