@@ -51,7 +51,9 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 	// Shift left logical: sll
 	// Shift right logical: srl
 
+
 	always @(ALUControl, A, B) begin
+		assign Zero = 0;
 		case (ALUControl)
 			6'b100000: // ADD 
 				ALUResult <= A + B;
@@ -71,12 +73,11 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 				ALUResult <= A << (B);
 			6'b000010: // srl
 				ALUResult <= A >> (B);	
-			6'b100010: begin// branch
-				Zero <= 1;
-				ALUResult <= 32'b00000000000000000000000000000000;
-			end
+			default:
+				ALUResult <= 32'b0;
 		endcase
-			
+		Zero <= (ALUResult == 0);
+		
 	end
 
 
