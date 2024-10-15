@@ -1,99 +1,80 @@
 `timescale 1ns / 1ps
 
-module top_level_controller_test_tb;
+module MiniTopLevel_tb;
 
-    // Inputs
+    // Parameters
     reg Clk;
     reg Rst;
     reg [31:0] Instruction;
     reg Zero;
-
+    
     // Outputs
-    wire [31:0] ALUResult;
-    wire [31:0] DataMemoryOut;
-    wire Debug;
-    wire RegDst;
     wire [1:0] ALUOp;
-    wire ALUZero;
     wire ALUSrc;
-    wire Branch;
-    wire MemRead;
-    wire MemWrite;
-    wire MemtoReg;
     wire RegWrite;
-    wire PCSrc;
+    wire [2:0] ALUControl;
 
-    // Instantiate the Unit Under Test (UUT)
-    TopLevel uut (
+    // Instantiate the MiniTopLevel
+    MiniTopLevel uut (
         .Clk(Clk),
         .Rst(Rst),
         .Instruction(Instruction),
         .Zero(Zero),
-        .ALUResult(ALUResult),
-        .DataMemoryOut(DataMemoryOut),
-        .Debug(Debug),
-        .RegDst(RegDst),
         .ALUOp(ALUOp),
-        .ALUZero(ALUZero),
         .ALUSrc(ALUSrc),
-        .Branch(Branch),
-        .MemRead(MemRead),
-        .MemWrite(MemWrite),
-        .MemtoReg(MemtoReg),
         .RegWrite(RegWrite),
-        .PCSrc(PCSrc)
+        .ALUControl(ALUControl)
     );
 
-    // Clock Generation
-    always #5 Clk = ~Clk; // Generate a clock with a period of 10 ns
-
+    // Clock generation
     initial begin
-        // Initialize Inputs
         Clk = 0;
-        Rst = 0;
+        forever #5 Clk = ~Clk; // 10ns clock period
+    end
+
+    // Test sequence
+    initial begin
+        // Initialize inputs
+        Rst = 1;
         Instruction = 32'b0;
         Zero = 0;
 
-        // Reset the design
-        Rst = 1;       // Assert reset
-        #10;          // Wait for 10 ns
-        Rst = 0;       // De-assert reset
-        #10;          // Wait for 10 ns
-
-        // Test R-Type instruction (e.g., ADD)
-        Instruction = 32'b000000_00001_00010_00011_00000_100000; // R-type ADD instruction
+        // Wait for a few clock cycles
+        #15;
+        
+        // Release reset
+        Rst = 0;
+        
+        // Test R-Type instruction (ADD)
+        Instruction = 32'b000000_00001_00010_00011_00000_100000; // ADD R3, R1, R2
         #10;
-        $display("R-Type Instruction:");
-        $display("ALUResult: %b, Debug: %b, RegDst: %b, ALUOp: %b, ALUSrc: %b, Branch: %b, MemRead: %b, MemWrite: %b, MemtoReg: %b, RegWrite: %b, PCSrc: %b", 
-            ALUResult, Debug, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc);
+        display_outputs();
 
-        // Test Load instruction (LW)
-        Instruction = 32'b100011_00001_00010_00000_00000_000000; // opcode=100011 for lw
-        Zero = 0; // Zero signal for branch
+        // Test Load instruction
+        Instruction = 32'b100011_00001_00010_0000000000000000; // LW R2, 0(R1)
         #10;
-        $display("Load Instruction (lw):");
-        $display("ALUResult: %b, Debug: %b, RegDst: %b, ALUOp: %b, ALUSrc: %b, Branch: %b, MemRead: %b, MemWrite: %b, MemtoReg: %b, RegWrite: %b, PCSrc: %b", 
-            ALUResult, Debug, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc);
+        display_outputs();
 
-        // Test Store instruction (SW)
-        Instruction = 32'b101011_00001_00010_00000_00000_000000; // opcode=101011 for sw
+        // Test Store instruction
+        Instruction = 32'b101011_00001_00010_0000000000000000; // SW R2, 0(R1)
         #10;
-        $display("Store Instruction (sw):");
-        $display("ALUResult: %b, Debug: %b, RegDst: %b, ALUOp: %b, ALUSrc: %b, Branch: %b, MemRead: %b, MemWrite: %b, MemtoReg: %b, RegWrite: %b, PCSrc: %b", 
-            ALUResult, Debug, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc);
+        display_outputs();
 
-        // Test Branch instruction (BEQ)
-        Instruction = 32'b000100_00001_00010_00000_00000_000000; // opcode=000100 for beq
-        Zero = 1; // Simulate Zero signal for branch to be taken
+        // Test Branch instruction
+        Instruction = 32'b000100_00001_00010_0000000000000100; // BEQ R1, R2, 4
         #10;
-        $display("Branch Instruction (beq):");
-        $display("ALUResult: %b, Debug: %b, RegDst: %b, ALUOp: %b, ALUSrc: %b, Branch: %b, MemRead: %b, MemWrite: %b, MemtoReg: %b, RegWrite: %b, PCSrc: %b", 
-            ALUResult, Debug, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc);
+        display_outputs();
 
-        // Add more tests as necessary...
-
-        // Finish the simulation
-        $stop; // Stop the simulation
+        // End simulation
+        $finish;
     end
+
+    // Task to display outputs
+    task display_outputs;
+        begin
+            $display("Time: %0t | ALUOp: %b | ALUSrc: %b | RegWrite: %b | ALUControl: %b", 
+                     $time, ALUOp, ALUSrc, RegWrite, ALUControl);
+        end
+    endtask
 
 endmodule
