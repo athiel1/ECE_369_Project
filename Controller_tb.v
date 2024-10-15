@@ -55,6 +55,7 @@ module Controller_tb;
         #10;     // Wait for 10 time units
         Rst = 0; // Release reset
         #10;     // Wait for 10 time units
+        
 
         // Test R-Type instruction (e.g., add)
         Instruction = 32'b000000_00000_00000_00000_00000_100000; // R-type (funct=100000 for ADD)
@@ -93,7 +94,7 @@ module Controller_tb;
             RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc, Debug);
 
         // Finish the simulation
-        $stop; // End the simulation
+        // $stop; // End the simulation
     end
 
 endmodule
