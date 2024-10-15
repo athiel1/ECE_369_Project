@@ -6,11 +6,11 @@ module Branch(Branch, Zero, PCSrc);
   output PCSrc;
 
   if (Branch and Zero) begin
-    PCSrc = 1;
+    assign PCSrc = 1;
   end
 
   else begin
-    PCSrc = 0;
+    assign PCSrc = 0;
   end
 
 endmodule
