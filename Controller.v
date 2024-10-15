@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc);
+module Controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc);
     input wire Clk;
     input wire Rst;
     input [31:0] Instruction;
@@ -41,7 +41,7 @@ module controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, B
 
     assign operation = Instruction[31:26];
 
-    always @(posedge Clk or Rst) begin
+    always @(posedge Clk or posedge Rst) begin
         if (Rst) begin
             RegDst <= 0;
             ALUOp <= 0;
@@ -66,7 +66,7 @@ module controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, B
             RegWrite <= 0;
             PCSrc <= 0;     
     
-        case (operation) 
+        case (Instruction[31:26]) 
             6'b000000: begin // R-Type
                 RegDst = 1;
                 ALUOp = 2'b00;
