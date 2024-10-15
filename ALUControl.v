@@ -43,6 +43,3 @@ module ALUControl(ALUOp, funct, ALUControl);
   end
 
 endmodule
-
-
-
