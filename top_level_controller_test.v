@@ -1,26 +1,31 @@
-module TopLevel (
+`timescale 1ns / 1ps
+
+module top_level_controller_test(
     input wire Clk,
     input wire Rst,
     input wire [31:0] Instruction,
     input wire Zero,
-    
     output wire [31:0] ALUResult,
-    output wire ZeroFlag,
+    output wire [31:0] DataMemoryOut,
+    output wire Debug,
+    output wire RegDst,
     output wire [1:0] ALUOp,
-    output wire RegWrite
+    output wire ALUZero,
+    output wire ALUSrc,
+    output wire Branch,
+    output wire MemRead,
+    output wire MemWrite,
+    output wire MemtoReg,
+    output wire RegWrite,
+    output wire PCSrc
 );
 
     // Internal signals
-    wire RegDst;
-    wire ALUSrc;
-    wire Branch;
-    wire MemRead;
-    wire MemWrite;
-    wire MemtoReg;
-    wire PCSrc;
-    wire [5:0] ALUControlSignal;
-    wire [31:0] ALUInputA;
-    wire [31:0] ALUInputB;
+    wire [31:0] ALUInput1;
+    wire [31:0] ALUInput2;
+    wire [3:0] ALUControlSignal;
+    wire [31:0] ALUOutput;
+    wire [31:0] DataMemoryInput; // Input for Data Memory
 
     // Instantiate the Controller
     Controller controller_inst (
@@ -30,34 +35,44 @@ module TopLevel (
         .Zero(Zero),
         .RegDst(RegDst),
         .ALUOp(ALUOp),
-        .ALUZero(),
+        .ALUZero(ALUZero),
         .ALUSrc(ALUSrc),
         .Branch(Branch),
         .MemRead(MemRead),
         .MemWrite(MemWrite),
         .MemtoReg(MemtoReg),
         .RegWrite(RegWrite),
-        .PCSrc()
-    );
-
-    // Instantiate the ALU Control
-    ALUcontrol alu_control_inst (
-        .ALUOp(ALUOp),
-        .funct(Instruction[5:0]), // Assuming funct is the last 6 bits of the instruction
-        .ALUControl(ALUControlSignal)
+        .PCSrc(PCSrc),
+        .Debug(Debug)  // Connect Debug signal
     );
 
     // Instantiate the ALU
-    ALU32Bit alu_inst (
+    ALU alu_inst (
+        .Input1(ALUInput1),
+        .Input2(ALUInput2),
         .ALUControl(ALUControlSignal),
-        .A(ALUInputA),
-        .B(ALUInputB),
-        .ALUResult(ALUResult),
-        .Zero(ZeroFlag)
+        .ALUResult(ALUOutput)
     );
 
-    // Logic to drive ALUInputA and ALUInputB from registers or immediate values
-    assign ALUInputA = 32'b0; // Connect to the appropriate register data
-    assign ALUInputB = ALUSrc ? {16'b0, Instruction[15:0]} : ALUInputA; // Immediate value or register data
+    // Instantiate the ALU Control
+    ALUControl alu_control_inst (
+        .ALUOp(ALUOp),
+        .FunctionCode(Instruction[5:0]),  // R-type instruction's funct field
+        .ALUControl(ALUControlSignal)
+    );
+
+    // Data Memory (simple RAM model, can be replaced with actual RAM)
+    DataMemory data_memory_inst (
+        .Clk(Clk),
+        .MemRead(MemRead),
+        .MemWrite(MemWrite),
+        .Address(ALUOutput),           // Address is the ALU output
+        .WriteData(DataMemoryInput),   // Input data for memory
+        .ReadData(DataMemoryOut)       // Output data from memory
+    );
+
+    // ALU Inputs Multiplexing
+    assign ALUInput1 = ...; // Assign based on register file or other inputs
+    assign ALUInput2 = (ALUSrc) ? DataMemoryInput : ...; // Choose between immediate or data from registers
 
 endmodule
