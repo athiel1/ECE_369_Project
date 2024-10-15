@@ -5,12 +5,6 @@ module Branch(Branch, Zero, PCSrc);
 
   output PCSrc;
 
-  if (Branch and Zero) begin
-    assign PCSrc = 1;
-  end
-
-  else begin
-    assign PCSrc = 0;
-  end
+  assign PCSrc = Branch & Zero;
 
 endmodule
