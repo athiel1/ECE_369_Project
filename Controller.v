@@ -76,52 +76,52 @@ module Controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, B
     
             case (Instruction[31:26]) 
                 6'b000000: begin // R-Type
-                    RegDst = 1;
-                    ALUOp = 2'b00;
-                    ALUZero = 0;     //doesn't matter
-                    ALUSrc = 0;
-                    Branch = 0;      //doesn't matter
-                    MemRead = 0;     //doesn't matter
-                    MemWrite = 0;
-                    MemtoReg = 1;
-                    RegWrite = 1;
-                    PCSrc = 0;       //doesn't matter
+                    RegDst <= 1;
+                    ALUOp <= 2'b00;
+                    ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 0;
+                    Branch <= 0;      //doesn't matter
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    PCSrc <= 0;       //doesn't matter
                 end
                 6'b100011: begin // Load
-                    RegDst = 0;
-                    ALUOp = 2'b01;
-                    ALUZero = 0;     //doesn't matter
-                    ALUSrc = 1;
-                    Branch = 0;      //doesn't matter
-                    MemRead = 1;
-                    MemWrite = 0;
-                    MemtoReg = 1;
-                    RegWrite = 1;
-                    PCSrc = 0;       //doesn't matter
+                    RegDst <= 0;
+                    ALUOp <= 2'b01;
+                    ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;
+                    Branch <= 0;      //doesn't matter
+                    MemRead <= 1;
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    PCSrc <= 0;       //doesn't matter
                 end
                 6'b101011: begin // Store
-                    RegDst = 0;
-                    ALUOp = 2'b01;
-                    ALUZero = 0;     //doesn't matter
-                    ALUSrc = 1;
-                    Branch = 0;      //doesn't matter
-                    MemRead = 0;
-                    MemWrite = 1;
-                    MemtoReg = 0;    //doesn't matter
-                    RegWrite = 0;
-                    PCSrc = 0;       //doesn't matter
+                    RegDst <= 0;
+                    ALUOp <= 2'b01;
+                    ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;
+                    Branch <= 0;      //doesn't matter
+                    MemRead <= 0;
+                    MemWrite <= 1;
+                    MemtoReg <= 0;    //doesn't matter
+                    RegWrite <= 0;
+                    PCSrc <= 0;       //doesn't matter
                 end
                 6'b000100: begin // Branch
-                    RegDst = 0;
-                    ALUOp = 2'b10;   // doesn't matter?
-                    ALUZero = 1;     
-                    ALUSrc = 0;
-                    Branch = 1;     
-                    MemRead = 0;     //doesn't matter
-                    MemWrite = 0;    //has to be 0 so we don't overwrite
-                    MemtoReg = 0;    //doesn't matter
-                    RegWrite = 0;    //has to be zero so we don't overwrite
-                    PCSrc = Branch & Zero;       
+                    RegDst <= 0;
+                    ALUOp <= 2'b10;   // doesn't matter?
+                    ALUZero <= 1;     
+                    ALUSrc <= 0;
+                    Branch <= 1;     
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;    //has to be 0 so we don't overwrite
+                    MemtoReg <= 0;    //doesn't matter
+                    RegWrite <= 0;    //has to be zero so we don't overwrite
+                    PCSrc <= Branch & Zero;       
                 end
                 default: begin
                     Debug = 1;
