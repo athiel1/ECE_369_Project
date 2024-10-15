@@ -12,10 +12,10 @@ module top_level_controller_test_tb;
     wire [1:0] ALUOp;
     wire ALUSrc;
     wire RegWrite;
-    wire [2:0] ALUControl;
+    wire [5:0] ALUControl;
 
     // Instantiate the MiniTopLevel
-    MiniTopLevel uut (
+    top_level_controller_test uut (
         .Clk(Clk),
         .Rst(Rst),
         .Instruction(Instruction),
