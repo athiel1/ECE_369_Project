@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module MiniTopLevel_tb;
+module top_level_controller_test_tb;
 
     // Parameters
     reg Clk;
