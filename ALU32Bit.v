@@ -72,7 +72,9 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			6'b000000: // sll
 				ALUResult <= A << (B);
 			6'b000010: // srl
-				ALUResult <= A >> (B);	
+				ALUResult <= A >> (B);
+			6'b101010: // slt
+				ALUResult <= A < B;
 			default: begin
 				ALUResult <= 32'b11;
 				Zero <= 1'b1;
