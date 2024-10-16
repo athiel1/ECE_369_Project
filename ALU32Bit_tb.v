@@ -97,3 +97,18 @@ module ALU32Bit_tb;
     end
 
 endmodule
+
+
+
+/*
+ADD: A = 16, B = 32, ALUResult = 48, Zero = 0
+SUB: A = 48, B = 32, ALUResult = 16, Zero = 0
+MUL: A = 4, B = 3, ALUResult = 12, Zero = 0
+AND: A = ffffffff, B = 0000000f, ALUResult = 0000000f, Zero = 0
+OR: A = 0000ffff, B = ffff0000, ALUResult = ffffffff, Zero = 0
+SLL: A = 00000001, B = 00000002, ALUResult = 00000004, Zero = 0
+SRL: A = 00000008, B = 00000002, ALUResult = 00000002, Zero = 0
+NOR: A = 0000000f, B = 000000f0, ALUResult = ffffff00, Zero = 0
+XOR: A = f0f0f0f0, B = 0f0f0f0f, ALUResult = ffffffff, Zero = 0
+DEFAULT: A = 12345678, B = 87654321, ALUResult = 00000000, Zero = 1
+*/
