@@ -87,6 +87,54 @@ module Controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, B
                     RegWrite <= 1;
                     PCSrc <= 0;       //doesn't matter
                 end
+                6'b001000: begin // ADDI
+                    RegDst <= 0;      // result goes to register rt [20:16]
+                    ALUOp <= 2'b01;
+                    ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;      // takes the 'imm' value at the mux
+                    Branch <= 0;      //doesn't matter
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    PCSrc <= 0;       //doesn't matter
+                end
+                6'b001100: begin // ANDI
+                    RegDst <= 0;      // result goes to register rt [20:16]
+                    ALUOp <= 2'b01;
+                    ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;      // takes the 'imm' value at the mux
+                    Branch <= 0;      //doesn't matter
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    PCSrc <= 0;       //doesn't matter
+                end
+                6'b001101: begin // ORI
+                    RegDst <= 0;      // result goes to register rt [20:16]
+                    ALUOp <= 2'b01;
+                    ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;      // takes the 'imm' value at the mux
+                    Branch <= 0;      //doesn't matter
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    PCSrc <= 0;       //doesn't matter
+                end
+                6'b001110: begin // XORI
+                    RegDst <= 0;      // result goes to register rt [20:16]
+                    ALUOp <= 2'b01;
+                    ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;      // takes the 'imm' value at the mux
+                    Branch <= 0;      //doesn't matter
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    PCSrc <= 0;       //doesn't matter
+                end
                 6'b100011: begin // Load
                     RegDst <= 0;
                     ALUOp <= 2'b01;
