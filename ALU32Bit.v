@@ -52,7 +52,7 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 	// Shift right logical: srl
 
 
-	always @(ALUControl, A, B) begin
+	always @(*) begin
 
 		case (ALUControl)
 			6'b100000: // ADD 
@@ -75,25 +75,24 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 				ALUResult <= A >> (B);
 			6'b101010: // slt
 				ALUResult <= A < B;
-			6'b101000: // Store byte
-			  	ALUResult = ;  //FIXME
-   		 	6'b100000: // Load byte
-			  	ALUResult = ;  //FIXME
-		  	6'b101001: // Store half
-			  	ALUResult = ;  //FIXME
-		  	6'b100001: // Load half
-			  	ALUResult = ;  //FIXME
+			//6'b101000: // Store byte
+			  	//ALUResult = ;  //FIXME
+   		 	//6'b100000: // Load byte
+			  	//ALUResult = ;  //FIXME
+		  	//6'b101001: // Store half
+			  	//ALUResult = ;  //FIXME
+		  	//6'b100001: // Load half
+			  	//ALUResult = ;  //FIXME
 			default: begin
-				ALUResult <= 32'b11;
+				ALUResult <= 32'b0;
 				Zero <= 1'b1;
 			end
 		endcase
-		// Zero <= (ALUResult == 32'b0);
-		if (ALUResult == 32'b0) begin
-		  assign Zero = 1'b1;
+		if (ALUResult == 0) begin
+		  Zero <= 1;
 		end 
 		else begin
-		  assign Zero = 1'b0;
+		  Zero <= 0;
 		end
 	end
 
