@@ -50,6 +50,30 @@ module ALUControl(ALUOp, funct, I_op, ALUControl);
 			  ALUControl = 6'b100101;
 		  6'b001010: // SLTI
 			  ALUControl = 6'b101010;
+		  6'b101000: // Store byte
+			  ALUControl = 6'b101000;
+   		  6'b100000: // Load byte
+			  ALUControl = 6'b100000;
+		  6'b101001: // Store half
+			  ALUControl = 6'b101001;
+		  6'b100001: // Load half
+			  ALUControl = 6'b100001;
+		  6'b000001: // BLTZ
+			  ALUControl = 6'b000001;
+		  6'b000100: // BEQ
+			  ALUControl = 6'b000001;
+		  6'b000101: // BNE
+			  ALUControl = 6'b000001;
+		  6'b000111: // BGTZ
+			  ALUControl = 6'b000001;
+		  6'b000110: // BLEZ
+			  ALUControl = 6'b000001;
+		  6'b000010: // J
+			  ALUControl = 6'b000001;
+		  6'b: // JR                        ////FIXME
+			  ALUControl = 6'b;
+		  6'b000011: // JAL
+			  ALUControl = 6'b000001;
 	  endcase
       end
 
