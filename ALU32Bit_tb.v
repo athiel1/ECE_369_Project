@@ -124,6 +124,82 @@ module ALU32Bit_tb;
         #10;
         $display("LB: A = %h, B = %h, Result = %h, Zero = %b", A, B, ALUResult, Zero);
 
+        // Test BGEZ (Branch if Greater Than or Equal to Zero)
+A = 32'h00000005; // A is 5 (>= 0)
+ALUControl = 6'b000001; // BGEZ
+#10;
+$display("BGEZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 1, Zero: 0
+
+A = 32'h00000000; // A is 0 (>= 0)
+ALUControl = 6'b000001; // BGEZ
+#10;
+$display("BGEZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 1, Zero: 0
+
+A = -1; // A is -1 (< 0)
+ALUControl = 6'b000001; // BGEZ
+#10;
+$display("BGEZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 0, Zero: 1
+
+// Test BLTZ (Branch if Less Than Zero)
+A = -1; // A is -1 (< 0)
+ALUControl = 6'b000011; // BLTZ
+#10;
+$display("BLTZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 1, Zero: 0
+
+A = 32'h00000000; // A is 0 (>= 0)
+ALUControl = 6'b000011; // BLTZ
+#10;
+$display("BLTZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 0, Zero: 1
+
+A = 32'h00000003; // A is 3 (>= 0)
+ALUControl = 6'b000011; // BLTZ
+#10;
+$display("BLTZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 0, Zero: 1
+
+// Test BGTZ (Branch if Greater Than Zero)
+A = 32'h00000001; // A is 1 (> 0)
+ALUControl = 6'b000111; // BGTZ
+#10;
+$display("BGTZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 1, Zero: 0
+
+A = 32'h00000000; // A is 0 (not > 0)
+ALUControl = 6'b000111; // BGTZ
+#10;
+$display("BGTZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 0, Zero: 1
+
+A = -1; // A is -1 (not > 0)
+ALUControl = 6'b000111; // BGTZ
+#10;
+$display("BGTZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 0, Zero: 1
+
+// Test BLEZ (Branch if Less Than or Equal to Zero)
+A = -1; // A is -1 (<= 0)
+ALUControl = 6'b000110; // BLEZ
+#10;
+$display("BLEZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 1, Zero: 0
+
+A = 32'h00000000; // A is 0 (<= 0)
+ALUControl = 6'b000110; // BLEZ
+#10;
+$display("BLEZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 1, Zero: 0
+
+A = 32'h00000002; // A is 2 (> 0)
+ALUControl = 6'b000110; // BLEZ
+#10;
+$display("BLEZ: A = %d, Result = %d, Zero = %b", A, ALUResult, Zero);
+// Expected: Result = 0, Zero: 1
+
         // End of test
         $finish;
     end
@@ -133,17 +209,5 @@ endmodule
 
 
 /////////////////EXPECTED RESULT//////////////////////
-// Operation   ALUControl | A             | B             | ALUResult      | Zero
-// -------------------------------------------------------------------------------
-// ADD         100000     | 0x00000005    | 0x00000003    | 0x00000008     | 0
-// SUB         100010     | 0x00000005    | 0x00000005    | 0x00000000     | 1
-// AND         100100     | 0xAAAAAAAA    | 0x55555555    | 0x00000000     | 1
-// OR          100101     | 0xAAAAAAAA    | 0x55555555    | 0xFFFFFFFF     | 0
-// NOR         100111     | 0xAAAAAAAA    | 0x55555555    | 0x00000000     | 1
-// XOR         100110     | 0xAAAAAAAA    | 0x55555555    | 0xFFFFFFFF     | 0
-// SLL         000000     | 0x00000001    | 0x00000002    | 0x00000004     | 0
-// SRL         000010     | 0x00000004    | 0x00000002    | 0x00000001     | 0
-// SLT         101010     | 0x00000001    | 0x00000002    | 0x00000001     | 0
-// BEQ         000100     | 0x00000005    | 0x00000005    | 0xXXXXXXXX     | 1  // ALUResult isn't used, can be anything
-// BNE         000101     | 0x00000005    | 0x00000003    | 0xXXXXXXXX     | 0  // ALUResult isn't used, can be anything
+
 ///////////////////////////////////////////////////////
