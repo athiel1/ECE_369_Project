@@ -247,7 +247,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     RegDst <= 0;
                     ALUOp <= 2'b10;
                     //ALUZero <= 1;     
-                    ALUSrc <= 2;      //want to compare to 0     
+                    ALUSrc <= 0;      // doesn't matter, only rs (A) will be compared to 0 in ALU     
                     Branch <= 1;     
                     MemRead <= 0;     //doesn't matter
                     MemWrite <= 0;    //has to be 0 so we don't overwrite
@@ -259,7 +259,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     RegDst <= 0;
                     ALUOp <= 2'b10;
                     //ALUZero <= 1;     
-                    ALUSrc <= 2;      //want to compare to 0      
+                    ALUSrc <= 0;      //doesn't matter, only rs (A) will be compared to 0 in ALU      
                     Branch <= 1;     
                     MemRead <= 0;     //doesn't matter
                     MemWrite <= 0;    //has to be 0 so we don't overwrite
