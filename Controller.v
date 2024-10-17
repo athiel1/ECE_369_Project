@@ -176,11 +176,11 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     ALUOp <= 2'b01;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;
-                    Branch <= 0;      //doesn't matter
-                    MemRead <= 0;
-                    MemWrite <= 1;
-                    MemtoReg <= 0;    //doesn't matter
-                    RegWrite <= 0;
+                    Branch <= 0;      
+                    MemRead <= 1;
+                    MemWrite <= 0;
+                    MemtoReg <= 0;  
+                    RegWrite <= 1;
                     //PCSrc <= 0;       //doesn't matter
                 end
                 6'b101001: begin // Store half
@@ -200,11 +200,11 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     ALUOp <= 2'b01;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;
-                    Branch <= 0;      //doesn't matter
-                    MemRead <= 0;
-                    MemWrite <= 1;
-                    MemtoReg <= 0;    //doesn't matter
-                    RegWrite <= 0;
+                    Branch <= 0;      
+                    MemRead <= 1;
+                    MemWrite <= 0;
+                    MemtoReg <= 0;  
+                    RegWrite <= 1;
                     //PCSrc <= 0;       //doesn't matter
                 end
                 6'b000001: begin // BGEZ & BLTZ
