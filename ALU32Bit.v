@@ -83,6 +83,22 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			  	//ALUResult = ;  //FIXME
 		  	//6'b100001: // Load half
 			  	//ALUResult = ;  //FIXME
+			6'b000001: // BGEZ & BLTZ
+			  	ALUResult = A < 0;
+		  	6'b000100: // BEQ
+				ALUResult = (A == B);  //FIXME
+		  	6'b000101: // BNE
+				ALUResult = (A != B);
+		  	6'b000111: // BGTZ
+				ALUResult = (A > 0);
+		  	6'b000110: // BLEZ
+				ALUResult = (A <= 0);
+		  	6'b000010: // J
+			  	ALUResult = 0;
+		  	6'b: // JR                        ////FIXME
+			  	ALUResult = 0;
+		  	6'b000011: // JAL
+			  	ALUResult = 0;
 			default: begin
 				ALUResult <= 32'b0;
 				Zero <= 1'b1;
