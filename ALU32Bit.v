@@ -70,19 +70,19 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			6'b100110: // XOR
 				ALUResult <= A ^ B;
 			6'b000000: // sll
-				ALUResult <= A << (B);
+				ALUResult <= A << (B[4:0]);
 			6'b000010: // srl
-				ALUResult <= A >> (B);
+				ALUResult <= A >> (B[4:0]);
 			6'b101010: // slt
 				ALUResult <= A < B;
-			//6'b101000: // Store byte
-			  	//ALUResult = ;  //FIXME
-   		 	//6'b100000: // Load byte
-			  	//ALUResult = ;  //FIXME
-		  	//6'b101001: // Store half
-			  	//ALUResult = ;  //FIXME
-		  	//6'b100001: // Load half
-			  	//ALUResult = ;  //FIXME
+			6'b101000: // Store byte
+			  	ALUResult = A + B;
+   		 	6'b100000: // Load byte
+			  	ALUResult = A + B;
+		  	6'b101001: // Store half
+			  	ALUResult = A + B;
+		  	6'b100001: // Load half
+			  	ALUResult = A + B;
 			6'b000001: // BGEZ & BLTZ
 			  	ALUResult = A < 0;
 		  	6'b000100: // BEQ
@@ -93,10 +93,22 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 				ALUResult = (A > 0);
 		  	6'b000110: // BLEZ
 				ALUResult = (A <= 0);
+
+			//////This could be a fix?///////
+			// 6'b000100: // BEQ
+    			//	Zero <= (A == B) ? 1'b1 : 1'b0;
+			// 6'b000101: // BNE
+   			//	Zero <= (A != B) ? 1'b1 : 1'b0;
+			// 6'b000111: // BGTZ
+    			//	Zero <= (A > 0) ? 1'b1 : 1'b0;
+			// 6'b000110: // BLEZ
+    			//	Zero <= (A <= 0) ? 1'b1 : 1'b0;
+			///////////////
+			
 		  	6'b000010: // J
 			  	ALUResult = 0;
-		  	6'b: // JR                        ////FIXME
-			  	ALUResult = 0;
+		  	6'b001000: // JR
+			  	ALUResult = A;
 		  	6'b000011: // JAL
 			  	ALUResult = 0;
 			default: begin
