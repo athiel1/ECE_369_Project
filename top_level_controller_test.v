@@ -1,27 +1,20 @@
 `timescale 1ns / 1ps
 
-module top_level_controller_test(
-    input wire Clk,
-    input wire Rst,
-    input wire [31:0] Instruction,
-    input wire Zero,
-    output wire [1:0] ALUOp,
-    output wire ALUSrc,
-    output wire RegWrite,
-    output wire [5:0] ALUControl
+module TopModule(
+    input wire Clk,         // Clock signal
+    input wire Rst,         // Reset signal
+    input wire [31:0] Instruction,  // Instruction input
+    input wire Zero,        // Zero signal for branch evaluation
+    output wire [5:0] ALUControlSignal, // ALU Control signal output
+    output wire PCSrc,      // Program counter source (Branch decision)
+    output wire Debug       // Debug signal from Controller
 );
 
-    // Wires to connect Controller and ALUControl
-    wire RegDst;
-    wire ALUZero;
-    wire Branch;
-    wire MemRead;
-    wire MemWrite;
-    wire MemtoReg;
-    wire PCSrc;
-    
-    // Instantiate the Controller
-    Controller ctrl (
+    wire [1:0] ALUOp;         // ALU operation code from Controller
+    wire RegDst, ALUSrc, MemRead, MemWrite, MemtoReg, RegWrite, ALUZero, Branch;
+
+    // Instantiate the Controller module
+    Controller controller(
         .Clk(Clk),
         .Rst(Rst),
         .Instruction(Instruction),
@@ -36,14 +29,22 @@ module top_level_controller_test(
         .MemtoReg(MemtoReg),
         .RegWrite(RegWrite),
         .PCSrc(PCSrc),
-        .Debug() // Optional debug output
+        .Debug(Debug)
     );
 
-    // Instantiate the ALUControl
-    ALUControl aluCtrl (
+    // Instantiate the ALUControl module
+    ALUControl alu_control(
         .ALUOp(ALUOp),
-        .funct(Instruction[5:0]), // Assuming funct is part of the instruction
-        .ALUControl(ALUControl)
+        .funct(Instruction[5:0]),      // Assuming funct field is bits [5:0]
+        .I_op(Instruction[31:26]),     // Assuming I-type opcode in bits [31:26]
+        .ALUControl(ALUControlSignal)
+    );
+
+    // Instantiate the Branch module
+    Branch branch_module(
+        .Branch(Branch),
+        .Zero(Zero),
+        .PCSrc(PCSrc)
     );
 
 endmodule
