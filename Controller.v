@@ -80,7 +80,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     ALUOp <= 2'b00;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 0;
-                    Branch <= 0;      //doesn't matter
+                    Branch <= 0;      
                     MemRead <= 0;     //doesn't matter
                     MemWrite <= 0;
                     MemtoReg <= 1;
@@ -92,7 +92,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     ALUOp <= 2'b01;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;      // takes the 'imm' value at the mux
-                    Branch <= 0;      //doesn't matter
+                    Branch <= 0;      
                     MemRead <= 0;     //doesn't matter
                     MemWrite <= 0;
                     MemtoReg <= 1;
