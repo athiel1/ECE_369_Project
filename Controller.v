@@ -20,11 +20,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Controller(Clk, Rst, Instruction, Zero, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc, Debug);
+module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc, Debug);
     input wire Clk;
     input wire Rst;
     input [31:0] Instruction;
-    input Zero;
+    //input Zero; might become isEqual later 
 
     
     
