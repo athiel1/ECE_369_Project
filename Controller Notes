@@ -1,20 +1,5 @@
-CONTROLLER NOTES 
+NOTES
 
-Inputs:
-  - Clock
-  - Rest
-
-WIRES:
-- RegDst
-- ALUOp
-- ALUSrc
-- Zero
-- Branch
-- MemWrite
-- MemRead
-- PCSrc
-- MemtoReg
-- RegWrite
-
+Zybooks 2.10: operations tables
 
   
