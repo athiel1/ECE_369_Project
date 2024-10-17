@@ -83,16 +83,20 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			  	ALUResult = A + B;
 		  	6'b100001: // Load half
 			  	ALUResult = A + B;
-			6'b000001: // BGEZ & BLTZ
-			  	ALUResult = A < 0;
+
+			//FIXME below
+			6'b000001: // BGEZ
+			  	ALUResult = (A >= 0) ? 32'b0 : 32'b1;
+            		6'b000011: // BLTZ
+			  	ALUResult = (A < 0) ? 32'b0 : 32'b1;
 		  	6'b000100: // BEQ
-				ALUResult = (A == B);  //FIXME
+				ALUResult = (A == B) ? 32'b0 : 32'b1;
 		  	6'b000101: // BNE
-				ALUResult = (A != B);
+				ALUResult = (A != B) ? 32'b0 : 32'b1;
 		  	6'b000111: // BGTZ
-				ALUResult = (A > 0);
+				ALUResult = (A > 0) ? 32'b0 : 32'b1;
 		  	6'b000110: // BLEZ
-				ALUResult = (A <= 0);
+				ALUResult = (A <= 0) ? 32'b0 : 32'b1;
 
 			//////This could be a fix?///////
 			// 6'b000100: // BEQ
