@@ -75,6 +75,14 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 				ALUResult <= A >> (B);
 			6'b101010: // slt
 				ALUResult <= A < B;
+			6'b101000: // Store byte
+			  	ALUResult = ;  //FIXME
+   		 	6'b100000: // Load byte
+			  	ALUResult = ;  //FIXME
+		  	6'b101001: // Store half
+			  	ALUResult = ;  //FIXME
+		  	6'b100001: // Load half
+			  	ALUResult = ;  //FIXME
 			default: begin
 				ALUResult <= 32'b11;
 				Zero <= 1'b1;
