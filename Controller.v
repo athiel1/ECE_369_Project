@@ -211,7 +211,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     RegDst <= 0;
                     ALUOp <= 2'b10;
                     //ALUZero <= 1;     
-                    ALUSrc <= 2;      //want to compare to 0
+                    ALUSrc <= 0;      //want to pass rt. if rt = 0, bltz. if rt = 1, bgez
                     Branch <= 1;     
                     MemRead <= 0;     //doesn't matter
                     MemWrite <= 0;    //has to be 0 so we don't overwrite
