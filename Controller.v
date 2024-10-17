@@ -140,10 +140,10 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     ALUOp <= 2'b01;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;
-                    Branch <= 0;      //doesn't matter
+                    Branch <= 0;      
                     MemRead <= 1;
                     MemWrite <= 0;
-                    MemtoReg <= 1;
+                    MemtoReg <= 0;  
                     RegWrite <= 1;
                     //PCSrc <= 0;       //doesn't matter
                 end
