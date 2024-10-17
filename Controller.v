@@ -30,7 +30,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
     
     output reg RegDst;
     output reg [1:0] ALUOp;
-    output reg ALUZero;
+    output reg ALUZero; // ??
     output reg ALUSrc;
     output reg Branch;
     output reg MemRead;
