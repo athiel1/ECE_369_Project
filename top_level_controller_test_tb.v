@@ -1,80 +1,61 @@
 `timescale 1ns / 1ps
 
-module top_level_controller_test_tb;
+module TopModule_tb;
 
-    // Parameters
     reg Clk;
     reg Rst;
     reg [31:0] Instruction;
     reg Zero;
     
-    // Outputs
-    wire [1:0] ALUOp;
-    wire ALUSrc;
-    wire RegWrite;
-    wire [5:0] ALUControl;
+    wire [5:0] ALUControlSignal;
+    wire PCSrc;
+    wire Debug;
 
-    // Instantiate the MiniTopLevel
-    top_level_controller_test uut (
+    // Instantiate the top module
+    TopModule uut (
         .Clk(Clk),
         .Rst(Rst),
         .Instruction(Instruction),
         .Zero(Zero),
-        .ALUOp(ALUOp),
-        .ALUSrc(ALUSrc),
-        .RegWrite(RegWrite),
-        .ALUControl(ALUControl)
+        .ALUControlSignal(ALUControlSignal),
+        .PCSrc(PCSrc),
+        .Debug(Debug)
     );
 
     // Clock generation
     initial begin
         Clk = 0;
-        forever #5 Clk = ~Clk; // 10ns clock period
+        forever #5 Clk = ~Clk;
     end
 
     // Test sequence
     initial begin
         // Initialize inputs
         Rst = 1;
-        Instruction = 32'b0;
+        Instruction = 32'b000000_00000_00000_00000_00000_100000;  // ADD instruction (R-type)
         Zero = 0;
 
-        // Wait for a few clock cycles
-        #15;
+        #10;  // Wait for 10ns
+
+        Rst = 0;  // Release reset
+
+        #10;
+        // Test R-type ADD instruction
+        Instruction = 32'b000000_00001_00010_00011_00000_100000;  // ADD
+        Zero = 0;
+        #20;
         
-        // Release reset
-        Rst = 0;
+        // Test BEQ instruction (Branch instruction)
+        Instruction = 32'b000100_00001_00010_00000_00000_000000;  // BEQ
+        Zero = 1;  // Simulate branch taken
+        #20;
         
-        // Test R-Type instruction (ADD)
-        Instruction = 32'b000000_00001_00010_00011_00000_100000; // ADD R3, R1, R2
-        #10;
-        display_outputs();
+        // Test I-type ADDI instruction
+        Instruction = 32'b001000_00001_00010_00000_00000_000101;  // ADDI
+        Zero = 0;
+        #20;
 
-        // Test Load instruction
-        Instruction = 32'b100011_00001_00010_0000000000000000; // LW R2, 0(R1)
-        #10;
-        display_outputs();
-
-        // Test Store instruction
-        Instruction = 32'b101011_00001_00010_0000000000000000; // SW R2, 0(R1)
-        #10;
-        display_outputs();
-
-        // Test Branch instruction
-        Instruction = 32'b000100_00001_00010_0000000000000100; // BEQ R1, R2, 4
-        #10;
-        display_outputs();
-
-        // End simulation
-        $finish;
+        $stop;
     end
-
-    // Task to display outputs
-    task display_outputs;
-        begin
-            $display("Time: %0t | ALUOp: %b | ALUSrc: %b | RegWrite: %b | ALUControl: %b", 
-                     $time, ALUOp, ALUSrc, RegWrite, ALUControl);
-        end
-    endtask
 
 endmodule
