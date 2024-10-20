@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
 
-module ALUControl(ALUOp, funct, I_op, ALUControl);
+module ALUControl(ALUOp, funct, op, ALUControl);
   input [1:0] ALUOp;
   input [5:0] funct;
-  input [5:0] I_op;
+  input [5:0] op;
 
   output reg [5:0] ALUControl;
 
@@ -37,7 +37,7 @@ module ALUControl(ALUOp, funct, I_op, ALUControl);
       end
 
       2'b01: begin // I-type instructions
-	  case(I_op)
+	  case(op)
 		  6'b101011: // SW
 			  ALUControl = 6'b100000;
 		  6'b100011: // LW
@@ -74,10 +74,12 @@ module ALUControl(ALUOp, funct, I_op, ALUControl);
       end
 
       2'b10: begin  // jump instruction
-          	  6'b000010: // J
+	  case(op) 
+		  6'b000010: // J
 			  ALUControl = 6'b000010;
 		  6'b000011: // JAL
 			  ALUControl = 6'b000011;
+	  endcase
       end
 
     endcase
