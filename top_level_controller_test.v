@@ -1,27 +1,41 @@
 `timescale 1ns / 1ps
 
-module top_level_controller_test(
-    input wire Clk,
-    input wire Rst,
-    input [31:0] Instruction, // Instruction input to Controller
-    input [31:0] A,           // Operand A to ALU
-    input [31:0] B,           // Operand B to ALU
-    output [31:0] ALUResult,  // Result from ALU
-    output Zero               // Zero flag from ALU
-);
+module top_level_controller_test(Clk, Rst, Instruction, A, B);
 
-    // Internal Signals
+    input wire Clk;
+    input wire Rst;
+    input [31:0] Instruction; // Instruction input to Controller
+    input [5:0] A;           // Operand A to ALU
+    input [5:0] B;           // Operand B to ALU
+
+    wire [5:0] funct;
+    wire Zero;
     wire [5:0] ALUControlSignal; // Control signal from ALUControl to ALU
-    wire [1:0] ALUOp;            // ALUOp signal from Controller to ALUControl
-    wire [5:0] funct;            // Function code from the instruction (R-type instructions)
-    wire Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc, Debug; // Control signals from Controller
-    wire [31:0] ALUOut;          // ALU Output
-    wire PCBranchSrc;            // PCSrc from Branch unit
-    wire ALUSrc;                 // ALUSrc control signal
+    wire [5:0] ALUOp;            // ALUOp signal from Controller to ALUControl
+    wire ALUSrc, RegDst, Branch, MemWrite, MemRead, MemtoReg, RegWrite;
+    
+    output [31:0] ALUResult;  // Result from ALU
+    output PCSrc;
 
-    // Assign function and opcode extraction from Instruction
-    assign funct = Instruction[5:0];        // Extract funct (R-type)
-    assign I_op = Instruction[31:26];       // Extract operation code from Instruction
+    funct = Instruction[5:0];
+
+    //Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite)
+    Controller b1(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite);
+
+    //ALUControl(ALUOp, funct, ALUControl)
+    ALUControl b2(ALUOp, funct, ALUControlSignal);
+
+    //ALU32Bit(ALUControl, A, B, ALUResult, Zero)
+    ALU32Bit b3(ALUControlSignal, A, B, ALUResult, Zero);
+
+    //Branch(Branch, Zero, PCSrc)
+    Branch b4(Branch, Zero, PCSrc);
+
+
+
+
+
+
 
     // Instantiate Controller
     Controller controller_inst(
