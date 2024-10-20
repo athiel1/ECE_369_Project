@@ -72,8 +72,6 @@ module ALUControl(ALUOp, funct, I_op, ALUControl);
 			  ALUControl = 6'b000001;
 		  6'b000010: // J
 			  ALUControl = 6'b000001;
-		  6'b000010: // JR                        ////FIXME
-			  ALUControl = 6'b000010;
 		  6'b000011: // JAL
 			  ALUControl = 6'b000001;
 	  endcase
