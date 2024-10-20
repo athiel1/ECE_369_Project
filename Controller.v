@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, PCSrc, Debug);
+module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite);
     input wire Clk;
     input wire Rst;
     input [31:0] Instruction;
@@ -37,8 +37,6 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
     output reg MemWrite;
     output reg MemtoReg;
     output reg RegWrite;
-    output reg PCSrc;
-    output reg Debug;
 
     wire [5:0] operation;
     assign operation = Instruction[31:26];
@@ -293,9 +291,6 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     RegWrite <= 0;    
                     //PCSrc <= Branch & Zero;
                 
-                default: begin
-                    Debug = 1;
-                end
             endcase
         end
     end
