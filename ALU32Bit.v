@@ -93,8 +93,6 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 					ALUResult = (A < 0) ? 32'b0 : 32'b1;
 				end
 			end
-            		6'b000011: // BLTZ
-			  	ALUResult = (A < 0) ? 32'b0 : 32'b1;
 		  	6'b000100: // BEQ
 				ALUResult = (A == B) ? 32'b0 : 32'b1;
 		  	6'b000101: // BNE
