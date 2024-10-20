@@ -6,17 +6,19 @@ module top_level_controller_test_tb;
     reg Clk;
     reg Rst;
     reg [31:0] Instruction;
-    reg [31:0] A, B;
+    reg [5:0] A, B;
 
     // Outputs
     wire [31:0] ALUResult;
+    wire [5:0] ALUControlSignal;
     wire Zero;
     wire PCSrc;
     wire RegDst, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite;
-    wire [1:0] ALUOp;
-    wire Debug;
+    wire [5:0] ALUOp;
 
-    // Instantiate the top-level module (Controller + ALU + ALUControl)
+    // Instantiate the top-level module (Controller + ALU + ALUControl + Branch)
+    
+    //top_level_controller_test(Clk, Rst, Instruction, A, B, ALUResult, PCSrc);
     top_level_controller_test uut (
         .Clk(Clk),
         .Rst(Rst),
@@ -24,17 +26,7 @@ module top_level_controller_test_tb;
         .A(A),
         .B(B),
         .ALUResult(ALUResult),
-        .Zero(Zero),
-        .PCSrc(PCSrc),
-        .RegDst(RegDst),
-        .ALUSrc(ALUSrc),
-        .Branch(Branch),
-        .MemRead(MemRead),
-        .MemWrite(MemWrite),
-        .MemtoReg(MemtoReg),
-        .RegWrite(RegWrite),
-        .ALUOp(ALUOp),
-        .Debug(Debug)
+        .PCSrc(PCSrc)
     );
 
     // Clock generation
