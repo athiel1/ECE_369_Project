@@ -209,7 +209,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000001: begin // BGEZ & BLTZ
                     RegDst <= 0;
-                    ALUOp <= 2'b10;
+                    ALUOp <= 2'b01;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;      //want to pass rt. if rt = 0, bltz. if rt = 1, bgez
                     Branch <= 1;     
@@ -221,7 +221,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000100: begin // BEQ
                     RegDst <= 0;
-                    ALUOp <= 2'b10;
+                    ALUOp <= 2'b01;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;      
                     Branch <= 1;     
@@ -233,7 +233,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000101: begin // BNE
                     RegDst <= 0;
-                    ALUOp <= 2'b10;
+                    ALUOp <= 2'b01;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;      
                     Branch <= 1;     
@@ -245,7 +245,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000111: begin // BGTZ
                     RegDst <= 0;
-                    ALUOp <= 2'b10;
+                    ALUOp <= 2'b01;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;      // doesn't matter, only rs (A) will be compared to 0 in ALU     
                     Branch <= 1;     
@@ -257,7 +257,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000110: begin // BLEZ
                     RegDst <= 0;
-                    ALUOp <= 2'b10;
+                    ALUOp <= 2'b01;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;      //doesn't matter, only rs (A) will be compared to 0 in ALU      
                     Branch <= 1;     
@@ -269,6 +269,29 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 
                 //FIXME: add instructions for j, jr, jal
+                6'b000010: begin // j
+                    RegDst <= 0;
+                    ALUOp <= 2'b10;
+                    //ALUZero <= 1;     
+                    ALUSrc <= 0;           
+                    Branch <= 1;     
+                    MemRead <= 0;     
+                    MemWrite <= 0;    
+                    MemtoReg <= 0;    
+                    RegWrite <= 0;    
+                    //PCSrc <= Branch & Zero;
+                end
+                6'b000011: begin // jal
+                    RegDst <= 0;
+                    ALUOp <= 2'b10;
+                    //ALUZero <= 1;     
+                    ALUSrc <= 1;            
+                    Branch <= 1;     
+                    MemRead <= 0;     
+                    MemWrite <= 1;    
+                    MemtoReg <= 0;   
+                    RegWrite <= 0;    
+                    //PCSrc <= Branch & Zero;
                 
                 default: begin
                     Debug = 1;
