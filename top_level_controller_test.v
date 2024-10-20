@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module TopLevel(
+module top_level_controller_test(
     input wire Clk,
     input wire Rst,
     input [31:0] Instruction, // Instruction input to Controller
