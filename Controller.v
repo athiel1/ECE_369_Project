@@ -290,6 +290,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     MemtoReg <= 0;   
                     RegWrite <= 0;    
                     //PCSrc <= Branch & Zero;
+                end
                 
             endcase
         end
