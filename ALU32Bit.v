@@ -83,6 +83,8 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			  	ALUResult = A + B;
 		  	6'b100001: // Load half
 			  	ALUResult = A + B;
+			6'b001000: // jr
+				ALUResult = 
 
 			//FIXME below
 			6'b000001: begin // BGEZ & BLTZ
@@ -115,8 +117,6 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			
 		  	6'b000010: // J
 			  	ALUResult = 0;
-		  	6'b001000: // JR
-			  	ALUResult = A;
 		  	6'b000011: // JAL
 			  	ALUResult = 0;
 			default: begin
