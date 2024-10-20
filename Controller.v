@@ -281,7 +281,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     RegWrite <= 0;    
                     //PCSrc <= Branch & Zero;
                 end
-                6'b000011: begin // jal
+                6'b000011: begin // jal  FIXME!
                     RegDst <= 0;
                     ALUOp <= 2'b10;
                     //ALUZero <= 1;     
