@@ -55,7 +55,7 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 	always @(*) begin
 
 		case (ALUControl)
-			6'b100000: // ADD & load byte
+			6'b100000: // ADD, Load byte, Store byte, Store half, Load half
 				ALUResult <= A + B;
 			6'b100010: // SUB
 				ALUResult <= A - B;  // might have to change
@@ -74,52 +74,47 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			6'b000010: // srl
 				ALUResult <= A >> (B[4:0]);
 			6'b101010: // slt
-				ALUResult <= A < B;
-			6'b101000: // Store byte
-			  	ALUResult = A + B;
-		  	6'b101001: // Store half
-			  	ALUResult = A + B;
-		  	6'b100001: // Load half
-			  	ALUResult = A + B;
+				ALUResult <= (A < B) ? 32'b1 : 32'b0;
 			6'b001000: // jr
 				ALUResult = A;
 
 			//FIXME below
 			6'b000001: begin // BGEZ & BLTZ
-				if (B == 1) begin
-					ALUResult = (A >= 0) ? 32'b0 : 32'b1;
+				if (B == 1) begin  //BGEZ
+					Zero <= (A >= 0) ? 1'b1 : 1'b0;
 				end
-				else (B == 0) begin
-					ALUResult = (A < 0) ? 32'b0 : 32'b1;
+				else if (B == 0) begin  //BLTZ
+					ALUResult = (A < 0) ? 1'b1 : 1'b0;
 				end
 			end
-		  	6'b000100: // BEQ
-				ALUResult = (A == B) ? 32'b0 : 32'b1;
-		  	6'b000101: // BNE
-				ALUResult = (A != B) ? 32'b0 : 32'b1;
-		  	6'b000111: // BGTZ
-				ALUResult = (A > 0) ? 32'b0 : 32'b1;
-		  	6'b000110: // BLEZ
-				ALUResult = (A <= 0) ? 32'b0 : 32'b1;
+			///////////////////
+		  	//6'b000100: // BEQ
+			//	ALUResult = (A == B) ? 32'b0 : 32'b1;
+		  	//6'b000101: // BNE
+			//	ALUResult = (A != B) ? 32'b0 : 32'b1;
+		  	//6'b000111: // BGTZ
+			//	ALUResult = (A > 0) ? 32'b0 : 32'b1;
+		  	//6'b000110: // BLEZ
+			//	ALUResult = (A <= 0) ? 32'b0 : 32'b1;
 
-			//////This could be a fix?///////
-			// 6'b000100: // BEQ
-    			//	Zero <= (A == B) ? 1'b1 : 1'b0;
-			// 6'b000101: // BNE
-   			//	Zero <= (A != B) ? 1'b1 : 1'b0;
-			// 6'b000111: // BGTZ
-    			//	Zero <= (A > 0) ? 1'b1 : 1'b0;
-			// 6'b000110: // BLEZ
-    			//	Zero <= (A <= 0) ? 1'b1 : 1'b0;
-			///////////////
+			
+			6'b000100: // BEQ
+    				Zero <= (A == B) ? 1'b1 : 1'b0;
+			6'b000101: // BNE
+   				Zero <= (A != B) ? 1'b1 : 1'b0;
+			6'b000111: // BGTZ
+    				Zero <= (A > 0) ? 1'b1 : 1'b0;
+			6'b000110: // BLEZ
+    				Zero <= (A <= 0) ? 1'b1 : 1'b0;
+			
 			
 		  	6'b000010: // J
-			  	ALUResult = 0;
+			  	ALUResult = 32'b0;
 		  	6'b000011: // JAL
-			  	ALUResult = 0;
+			  	ALUResult = 32'b0;
 			default: begin
 				ALUResult <= 32'b0;
-				Zero <= 1'b1;
+				Zero <= 1'b0;
 			end
 		endcase
 		if (ALUResult == 0) begin
