@@ -2,4 +2,687 @@ NOTES
 
 Zybooks 2.10: operations tables
 
+///////// Sunday 10/20/24 /////////
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 10/07/2024 05:34:15 PM
+// Design Name: 
+// Module Name: controller
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite);
+    input wire Clk;
+    input wire Rst;
+    input [31:0] Instruction;
+    //input Zero; might become isEqual later 
+
+    
+    
+    output reg RegDst;
+    output reg [5:0] ALUOp;
+    output reg ALUZero; // ??
+    output reg ALUSrc;
+    output reg Branch;
+    output reg MemRead;
+    output reg MemWrite;
+    output reg MemtoReg;
+    output reg RegWrite;
+
+    wire [5:0] operation;
+    assign operation = Instruction[31:26];
+    
+
+    always @(posedge Clk or posedge Rst) begin
+        if (Rst) begin
+            RegDst <= 0;
+            ALUOp <= 6'b000000;
+            ALUZero <= 0;
+            ALUSrc <= 0;
+            Branch <= 0;
+            MemRead <= 0;
+            MemWrite <= 0;
+            MemtoReg <= 0;
+            RegWrite <= 0;
+        end 
+        else begin
+            RegDst <= 0;
+            ALUOp <= 6'b000000;
+            ALUZero <= 0;
+            ALUSrc <= 0;
+            Branch <= 0;
+            MemRead <= 0;
+            MemWrite <= 0;
+            MemtoReg <= 0;
+            RegWrite <= 0;    
+    
+
+        $display("operation: %b", operation);
+    
+            case (Instruction[31:26]) 
+                6'b000000: begin // R-Type
+                    RegDst <= 1;
+                    ALUOp <= 6'b000000;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 0;
+                    Branch <= 0;      
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b001000: begin // ADDI
+                    RegDst <= 0;      // result goes to register rt [20:16]
+                    ALUOp <= 6'b001000;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;      // takes the 'imm' value at the mux
+                    Branch <= 0;      
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b001100: begin // ANDI
+                    RegDst <= 0;      // result goes to register rt [20:16]
+                    ALUOp <= 6'b001100;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;      // takes the 'imm' value at the mux
+                    Branch <= 0;      
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b001101: begin // ORI
+                    RegDst <= 0;      // result goes to register rt [20:16]
+                    ALUOp <= 6'b001101;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;      // takes the 'imm' value at the mux
+                    Branch <= 0;      
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b001110: begin // XORI
+                    RegDst <= 0;      // result goes to register rt [20:16]
+                    ALUOp <= 6'b001110;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;      // takes the 'imm' value at the mux
+                    Branch <= 0;      
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;
+                    MemtoReg <= 1;
+                    RegWrite <= 1;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b100011: begin // Load
+                    RegDst <= 0;
+                    ALUOp <= 6'b100011;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;
+                    Branch <= 0;      
+                    MemRead <= 1;
+                    MemWrite <= 0;
+                    MemtoReg <= 0;  
+                    RegWrite <= 1;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b101011: begin // Store
+                    RegDst <= 0;
+                    ALUOp <= 6'b101011;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;
+                    Branch <= 0;      //doesn't matter
+                    MemRead <= 0;
+                    MemWrite <= 1;
+                    MemtoReg <= 0;    //doesn't matter
+                    RegWrite <= 0;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b101000: begin // Store Byte
+                    RegDst <= 0;
+                    ALUOp <= 6'b101000;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;
+                    Branch <= 0;      //doesn't matter
+                    MemRead <= 0;
+                    MemWrite <= 1;
+                    MemtoReg <= 0;    //doesn't matter
+                    RegWrite <= 0;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b100000: begin // Load Byte
+                    RegDst <= 0;
+                    ALUOp <= 6'b100000;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;
+                    Branch <= 0;      
+                    MemRead <= 1;
+                    MemWrite <= 0;
+                    MemtoReg <= 0;  
+                    RegWrite <= 1;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b101001: begin // Store half
+                    RegDst <= 0;
+                    ALUOp <= 6'b101001;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;
+                    Branch <= 0;      //doesn't matter
+                    MemRead <= 0;
+                    MemWrite <= 1;
+                    MemtoReg <= 0;    //doesn't matter
+                    RegWrite <= 0;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b100001: begin // Load half
+                    RegDst <= 0;
+                    ALUOp <= 6'b100001;
+                    //ALUZero <= 0;     //doesn't matter
+                    ALUSrc <= 1;
+                    Branch <= 0;      
+                    MemRead <= 1;
+                    MemWrite <= 0;
+                    MemtoReg <= 0;  
+                    RegWrite <= 1;
+                    //PCSrc <= 0;       //doesn't matter
+                end
+                6'b000001: begin // BGEZ & BLTZ
+                    RegDst <= 0;
+                    ALUOp <= 6'b000001;
+                    //ALUZero <= 1;     
+                    ALUSrc <= 0;      //want to pass rt. if rt = 0, bltz. if rt = 1, bgez
+                    Branch <= 1;     
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;    //has to be 0 so we don't overwrite
+                    MemtoReg <= 0;    //doesn't matter
+                    RegWrite <= 0;    //has to be zero so we don't overwrite
+                    //PCSrc <= Branch & Zero;       
+                end
+                6'b000100: begin // BEQ
+                    RegDst <= 0;
+                    ALUOp <= 6'b000100;
+                    //ALUZero <= 1;     
+                    ALUSrc <= 0;      
+                    Branch <= 1;     
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;    //has to be 0 so we don't overwrite
+                    MemtoReg <= 0;    //doesn't matter
+                    RegWrite <= 0;    //has to be zero so we don't overwrite
+                    //PCSrc <= Branch & Zero;       
+                end
+                6'b000101: begin // BNE
+                    RegDst <= 0;
+                    ALUOp <= 6'b000101;
+                    //ALUZero <= 1;     
+                    ALUSrc <= 0;      
+                    Branch <= 1;     
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;    //has to be 0 so we don't overwrite
+                    MemtoReg <= 0;    //doesn't matter
+                    RegWrite <= 0;    //has to be zero so we don't overwrite
+                    //PCSrc <= Branch & Zero;       
+                end
+                6'b000111: begin // BGTZ
+                    RegDst <= 0;
+                    ALUOp <= 6'b000111;
+                    //ALUZero <= 1;     
+                    ALUSrc <= 0;      // doesn't matter, only rs (A) will be compared to 0 in ALU     
+                    Branch <= 1;     
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;    //has to be 0 so we don't overwrite
+                    MemtoReg <= 0;    //doesn't matter
+                    RegWrite <= 0;    //has to be zero so we don't overwrite
+                    //PCSrc <= Branch & Zero;       
+                end
+                6'b000110: begin // BLEZ
+                    RegDst <= 0;
+                    ALUOp <= 6'b000110;
+                    //ALUZero <= 1;     
+                    ALUSrc <= 0;      //doesn't matter, only rs (A) will be compared to 0 in ALU      
+                    Branch <= 1;     
+                    MemRead <= 0;     //doesn't matter
+                    MemWrite <= 0;    //has to be 0 so we don't overwrite
+                    MemtoReg <= 0;    //doesn't matter
+                    RegWrite <= 0;    //has to be zero so we don't overwrite
+                    //PCSrc <= Branch & Zero;       
+                end
+                
+                
+                6'b000010: begin // j
+                    RegDst <= 0;
+                    ALUOp <= 6'b000010;
+                    //ALUZero <= 1;     
+                    ALUSrc <= 0;           
+                    Branch <= 1;     
+                    MemRead <= 0;     
+                    MemWrite <= 0;    
+                    MemtoReg <= 0;    
+                    RegWrite <= 0;    
+                    //PCSrc <= Branch & Zero;
+                end
+                6'b000011: begin // jal  FIXME!
+                    RegDst <= 0;
+                    ALUOp <= 6'b000011;
+                    //ALUZero <= 1;     
+                    ALUSrc <= 1;            
+                    Branch <= 1;     
+                    MemRead <= 0;     
+                    MemWrite <= 1;    
+                    MemtoReg <= 0;   
+                    RegWrite <= 0;    
+                    //PCSrc <= Branch & Zero;
+                end
+                
+            endcase
+        end
+    end
+
+
+endmodule
+
+`timescale 1ns / 1ps
+
+module ALUControl(ALUOp, funct, ALUControl);
+  input [5:0] ALUOp;
+  input [5:0] funct;
+
+  output reg [5:0] ALUControl;
+
+  always @(ALUOp, funct) begin
+    case(ALUOp)
+    6'b000000: begin  // R-type instructions
+        case (funct)
+          6'b100000: // ADD 
+              ALUControl = 6'b100000;
+	      6'b100010: // SUB
+              ALUControl = 6'b100010;
+	       6'b011000: // MUL
+              ALUControl = 6'b011000;
+	       6'b100100: // AND
+              ALUControl = 6'b100100;
+	       6'b100101: // OR
+              ALUControl = 6'b100101;
+	       6'b100111: // NOR
+              ALUControl = 6'b100111;
+	       6'b100110: // XOR
+              ALUControl = 6'b100110;
+	       6'b000000: // sll
+              ALUControl = 6'b000000;
+	       6'b000010: // srl
+              ALUControl = 6'b000010;
+            6'b101010: // slt
+	      ALUControl = 6'b101010;
+	       6'b001000: // jr
+	      ALUControl = 6'b001000;
+	    endcase
+	end
+
+    6'b101011: // SW
+		ALUControl = 6'b100000;
+	6'b100011: // LW
+		ALUControl = 6'b100000;
+	6'b001000: // ADDI
+		ALUControl = 6'b100000;
+	6'b001100: // ANDI
+		ALUControl = 6'b100100;
+	6'b001101: // ORI
+		ALUControl = 6'b100101;
+	6'b001110: // XORI
+		ALUControl = 6'b100110;
+	6'b001010: // SLTI //
+		ALUControl = 6'b101010;
+	6'b101000: // Store byte
+		ALUControl = 6'b100000;
+   	6'b100000: // Load byte
+		ALUControl = 6'b100000;
+	6'b101001: // Store half
+		ALUControl = 6'b100000;
+	6'b100001: // Load half
+		ALUControl = 6'b100000;
+	6'b000001: // BLTZ & BGEZ //
+		ALUControl = 6'b000001;
+	6'b000100: // BEQ
+		ALUControl = 6'b000100;
+	6'b000101: // BNE
+		ALUControl = 6'b000101;
+	6'b000111: // BGTZ
+		ALUControl = 6'b000111;
+	6'b000110: // BLEZ
+		ALUControl = 6'b000110;
+
+	6'b000010: // J
+		ALUControl = 6'b000010;
+	6'b000011: // JAL
+		ALUControl = 6'b000011;
+
+    endcase
+        
+  end
+
+endmodule
+
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// ECE369 - Computer Architecture
+// 
+// Module - ALU32Bit.v
+// Description - 32-Bit wide arithmetic logic unit (ALU).
+//
+// INPUTS:-
+// ALUControl: N-Bit input control bits to select an ALU operation.
+// A: 32-Bit input port A.
+// B: 32-Bit input port B.
+//
+// OUTPUTS:-
+// ALUResult: 32-Bit ALU result output.
+// ZERO: 1-Bit output flag. 
+//
+// FUNCTIONALITY:-
+// Design a 32-Bit ALU, so that it supports all arithmetic operations 
+// needed by the MIPS instructions given in Labs5-8.docx document. 
+//   The 'ALUResult' will output the corresponding result of the operation 
+//   based on the 32-Bit inputs, 'A', and 'B'. 
+//   The 'Zero' flag is high when 'ALUResult' is '0'. 
+//   The 'ALUControl' signal should determine the function of the ALU 
+//   You need to determine the bitwidth of the ALUControl signal based on the number of 
+//   operations needed to support. 
+////////////////////////////////////////////////////////////////////////////////
+
+module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
+
+	input [5:0] ALUControl; // control bits for ALU operation
+                                // you need to adjust the bitwidth as needed
+	input [5:0] A;	    // inputs
+	input [31:0] B;
+
+	output reg [31:0] ALUResult;	// answer
+	output reg Zero;	    // Zero=1 if ALUResult == 0
+
+    /* Please fill in the implementation here... */
+
+	// Add: add, addi, lw, sw, sb, lh, lb, sh
+	// Subtract: sub, beq, bne, slt, slti
+	// Multiply: mul
+	// Branch if greater than or equal to zero: bgez
+	// Branch on greater than zero: bgtz
+	// Branch on less than or equal to zero: blez
+	// Branch on less than zero: bltz
+	// Logical ands: and, andi
+	// Logical or: or, ori
+	// Logical nor: nor
+	// Logical xor: xor, xori
+	// Shift left logical: sll
+	// Shift right logical: srl
+
+
+	always @(*) begin
+
+		case (ALUControl)
+			6'b100000: // ADD, Load byte, Store byte, Store half, Load half
+				ALUResult <= A + B;
+			6'b100010: // SUB
+				ALUResult <= A - B;  // might have to change
+			6'b011000: // MUL
+				ALUResult <= A * B;
+			6'b100100: // AND
+				ALUResult <= A & B;
+			6'b100101: // OR
+				ALUResult <= A | B;
+			6'b100111: // NOR
+				ALUResult <= ~(A | B);
+			6'b100110: // XOR
+				ALUResult <= A ^ B;
+			6'b000000: // sll
+				ALUResult <= A << (B[4:0]);
+			6'b000010: // srl
+				ALUResult <= A >> (B[4:0]);
+			6'b101010: // slt
+				ALUResult <= (A < B) ? 32'b1 : 32'b0;
+			6'b001000: // jr
+				ALUResult = A;
+
+			//FIXME below
+			6'b000001: begin // BGEZ & BLTZ
+				if (B == 1) begin  //BGEZ
+					Zero <= (A >= 0) ? 1'b1 : 1'b0;
+				end
+				else if (B == 0) begin  //BLTZ
+					Zero = (A < 0) ? 1'b1 : 1'b0;
+				end
+			end
+			///////////////////
+		  	//6'b000100: // BEQ
+			//	ALUResult = (A == B) ? 32'b0 : 32'b1;
+		  	//6'b000101: // BNE
+			//	ALUResult = (A != B) ? 32'b0 : 32'b1;
+		  	//6'b000111: // BGTZ
+			//	ALUResult = (A > 0) ? 32'b0 : 32'b1;
+		  	//6'b000110: // BLEZ
+			//	ALUResult = (A <= 0) ? 32'b0 : 32'b1;
+
+			
+			6'b000100: // BEQ
+    				Zero <= (A == B) ? 1'b1 : 1'b0;
+			6'b000101: // BNE
+   				Zero <= (A != B) ? 1'b1 : 1'b0;
+			6'b000111: // BGTZ
+    				Zero <= (A > 0) ? 1'b1 : 1'b0;
+			6'b000110: // BLEZ
+    				Zero <= (A <= 0) ? 1'b1 : 1'b0;
+			
+			
+		  	6'b000010: // J
+			  	ALUResult = 32'b0;
+		  	6'b000011: // JAL
+			  	ALUResult = 32'b0;
+			default: begin
+				ALUResult <= 32'b0;
+				Zero <= 1'b0;
+			end
+		endcase
+		//if (ALUResult == 0) begin
+		//  Zero <= 1;
+		//end 
+		//else begin
+		//  Zero <= 0;
+		//end
+	end
+
+
+endmodule
+
+
+
+
+
+			
+
+module Branch(Branch, Zero, PCSrc);
+
+  input Branch;
+  input Zero;
+
+  output PCSrc;
+
+  assign PCSrc = Branch & Zero;
+
+endmodule
+
+`timescale 1ns / 1ps
+
+module top_level_controller_test(Clk, Rst, Instruction, A, B, ALUResult, PCSrc);
+
+    input wire Clk;
+    input wire Rst;
+    input [31:0] Instruction; // Instruction input to Controller
+    input [5:0] A;           // Operand A to ALU
+    input [31:0] B;           // Operand B to ALU
+
+    wire [5:0] funct;
+    wire Zero;
+    wire [5:0] ALUControlSignal; // Control signal from ALUControl to ALU
+    wire [5:0] ALUOp;            // ALUOp signal from Controller to ALUControl
+    wire ALUSrc, RegDst, Branch, MemWrite, MemRead, MemtoReg, RegWrite;
+    
+    output [31:0] ALUResult;  // Result from ALU
+    output PCSrc;
+
+    assign funct = Instruction[5:0];
+
+    //Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite)
+    Controller b1(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite);
+
+    //ALUControl(ALUOp, funct, ALUControl)
+    ALUControl b2(ALUOp, funct, ALUControlSignal);
+
+    //ALU32Bit(ALUControl, A, B, ALUResult, Zero)
+    ALU32Bit b3(ALUControlSignal, A, B, ALUResult, Zero);
+
+    //Branch(Branch, Zero, PCSrc)
+    Branch b4(Branch, Zero, PCSrc);
+
+
+endmodule
+
+`timescale 1ns / 1ps
+
+module top_level_controller_test_tb;
+
+    // Inputs
+    reg Clk;
+    reg Rst;
+    reg [31:0] Instruction;
+    reg [5:0] A;
+    reg [31:0] B;
+
+    // Outputs
+    wire [31:0] ALUResult;
+    wire [5:0] ALUControlSignal;
+    wire Zero;
+    wire PCSrc;
+    wire RegDst, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite;
+    wire [5:0] ALUOp;
+
+    // Instantiate the top-level module (Controller + ALU + ALUControl + Branch)
+    
+    //top_level_controller_test(Clk, Rst, Instruction, A, B, ALUResult, PCSrc);
+    top_level_controller_test uut (
+        .Clk(Clk),
+        .Rst(Rst),
+        .Instruction(Instruction),
+        .A(A),
+        .B(B),
+        .ALUResult(ALUResult),
+        .PCSrc(PCSrc)
+    );
+
+    // Clock generation
+    initial begin
+        Clk = 0;
+        forever #5 Clk = ~Clk;
+    end
+
+    // Initialize Inputs
+    initial begin
+        // Apply Reset
+        Rst = 1;
+        Instruction = 32'b0;
+        A = 0;
+        B = 0;
+
+        // Wait for a few clock cycles
+        #10;
+        Rst = 0;
+
+        // Test case 1: ADD (R-type instruction)
+        Instruction = 32'b000000_00001_00010_00011_00000_100000;  // add $3, $1, $2
+        A = 32'd5;  // $1 = 5
+        B = 32'd10; // $2 = 10
+        #10;
+
+        // Test case 2: SUB (R-type instruction)
+        Instruction = 32'b000000_00001_00010_00011_00000_100010;  // sub $3, $1, $2
+        A = 32'd10;
+        B = 32'd5;
+        #10;
+
+        // Test case 3: AND (R-type instruction)
+        Instruction = 32'b000000_00001_00010_00011_00000_100100;  // and $3, $1, $2
+        A = 32'b1100;  // $1 = 12
+        B = 32'b1010;  // $2 = 10
+        #10;
+
+        // Test case 4: LW (I-type instruction)
+        Instruction = 32'b100011_00001_00010_0000000000000100;  // lw $2, 4($1)
+        A = 32'd4;  // base address
+        B = 32'd100; // offset
+        $display("A = %d, B = %d", A, B);
+        #10;
+        
+        // Test case 4.5: SW (I-type instruction)
+        Instruction = 32'b101011_00001_00010_0000000000000100;  // lw $2, 4($1)
+        A = 32'd4;  // base address
+        B = 32'd10; // offset
+        $display("A = %d, B = %d", A, B);
+        #10;
+
+        // Test case 5: BEQ (Branch instruction)
+        Instruction = 32'b000100_00001_00010_0000000000000100;  // beq $1, $2, 4
+        A = 32'd5;
+        B = 32'd5;
+        #10;
+
+        // Test case 6: OR (R-type instruction)
+        Instruction = 32'b000000_00001_00010_00011_00000_100101;  // or $3, $1, $2
+        A = 32'b1100; // $1 = 12
+        B = 32'b0011; // $2 = 3
+        #10;
+
+        // Test case 7: XORI (I-type instruction)
+        Instruction = 32'b001110_00001_00010_0000000000001010;  // xori $2, $1, 10
+        A = 32'd15;
+        #10;
+
+        // Test case 8: J (jump instruction)
+        Instruction = 32'b000010_00000000000000000000000010;  // j 2
+        #10;
+
+        // End the simulation
+        $finish;
+    end
+
+    // Monitor signals during simulation
+    initial begin
+        $monitor("Time = %0d, Instruction = %b, ALUResult = %d, Zero = %b, PCSrc = %b", 
+                 $time, Instruction, ALUResult, Zero, PCSrc);
+    end
+
+endmodule
+
+
+
+			
+
+
+
   
