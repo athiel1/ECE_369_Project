@@ -55,7 +55,7 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 	always @(*) begin
 
 		case (ALUControl)
-			6'b100000: // ADD 
+			6'b100000: // ADD & load byte
 				ALUResult <= A + B;
 			6'b100010: // SUB
 				ALUResult <= A - B;  // might have to change
@@ -76,8 +76,6 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			6'b101010: // slt
 				ALUResult <= A < B;
 			6'b101000: // Store byte
-			  	ALUResult = A + B;
-   		 	6'b100000: // Load byte
 			  	ALUResult = A + B;
 		  	6'b101001: // Store half
 			  	ALUResult = A + B;
