@@ -84,7 +84,7 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 					Zero <= (A >= 0) ? 1'b1 : 1'b0;
 				end
 				else if (B == 0) begin  //BLTZ
-					ALUResult = (A < 0) ? 1'b1 : 1'b0;
+					Zero = (A < 0) ? 1'b1 : 1'b0;
 				end
 			end
 			///////////////////
@@ -117,12 +117,12 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 				Zero <= 1'b0;
 			end
 		endcase
-		if (ALUResult == 0) begin
-		  Zero <= 1;
-		end 
-		else begin
-		  Zero <= 0;
-		end
+		//if (ALUResult == 0) begin
+		//  Zero <= 1;
+		//end 
+		//else begin
+		//  Zero <= 0;
+		//end
 	end
 
 
