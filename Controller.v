@@ -53,8 +53,6 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
             MemWrite <= 0;
             MemtoReg <= 0;
             RegWrite <= 0;
-            PCSrc <= 0;
-            Debug <= 0;
         end 
         else begin
             RegDst <= 0;
@@ -65,9 +63,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
             MemRead <= 0;
             MemWrite <= 0;
             MemtoReg <= 0;
-            RegWrite <= 0;
-            PCSrc <= 0;
-            Debug <= 0;     
+            RegWrite <= 0;    
     
 
         $display("operation: %b", operation);
