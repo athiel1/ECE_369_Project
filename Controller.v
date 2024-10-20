@@ -89,7 +89,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b001000: begin // ADDI
                     RegDst <= 0;      // result goes to register rt [20:16]
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b001000;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;      // takes the 'imm' value at the mux
                     Branch <= 0;      
@@ -101,7 +101,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b001100: begin // ANDI
                     RegDst <= 0;      // result goes to register rt [20:16]
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b001100;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;      // takes the 'imm' value at the mux
                     Branch <= 0;      
@@ -113,7 +113,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b001101: begin // ORI
                     RegDst <= 0;      // result goes to register rt [20:16]
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b001101;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;      // takes the 'imm' value at the mux
                     Branch <= 0;      
@@ -125,7 +125,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b001110: begin // XORI
                     RegDst <= 0;      // result goes to register rt [20:16]
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b001110;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;      // takes the 'imm' value at the mux
                     Branch <= 0;      
@@ -137,7 +137,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b100011: begin // Load
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b100011;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;
                     Branch <= 0;      
@@ -149,7 +149,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b101011: begin // Store
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b101011;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;
                     Branch <= 0;      //doesn't matter
@@ -161,7 +161,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b101000: begin // Store Byte
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b101000;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;
                     Branch <= 0;      //doesn't matter
@@ -173,7 +173,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b100000: begin // Load Byte
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b100000;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;
                     Branch <= 0;      
@@ -185,7 +185,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b101001: begin // Store half
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b101001;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;
                     Branch <= 0;      //doesn't matter
@@ -197,7 +197,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b100001: begin // Load half
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b100001;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 1;
                     Branch <= 0;      
@@ -209,7 +209,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000001: begin // BGEZ & BLTZ
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b000001;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;      //want to pass rt. if rt = 0, bltz. if rt = 1, bgez
                     Branch <= 1;     
@@ -221,7 +221,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000100: begin // BEQ
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b000100;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;      
                     Branch <= 1;     
@@ -233,7 +233,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000101: begin // BNE
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b000101;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;      
                     Branch <= 1;     
@@ -245,7 +245,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000111: begin // BGTZ
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b000111;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;      // doesn't matter, only rs (A) will be compared to 0 in ALU     
                     Branch <= 1;     
@@ -257,7 +257,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000110: begin // BLEZ
                     RegDst <= 0;
-                    ALUOp <= 2'b01;
+                    ALUOp <= 6'b000110;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;      //doesn't matter, only rs (A) will be compared to 0 in ALU      
                     Branch <= 1;     
@@ -271,7 +271,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 
                 6'b000010: begin // j
                     RegDst <= 0;
-                    ALUOp <= 2'b10;
+                    ALUOp <= 6'b000010;
                     //ALUZero <= 1;     
                     ALUSrc <= 0;           
                     Branch <= 1;     
@@ -283,7 +283,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                 end
                 6'b000011: begin // jal  FIXME!
                     RegDst <= 0;
-                    ALUOp <= 2'b10;
+                    ALUOp <= 6'b000011;
                     //ALUZero <= 1;     
                     ALUSrc <= 1;            
                     Branch <= 1;     
