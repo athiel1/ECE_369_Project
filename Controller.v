@@ -29,7 +29,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
     
     
     output reg RegDst;
-    output reg [1:0] ALUOp;
+    output reg [5:0] ALUOp;
     output reg ALUZero; // ??
     output reg ALUSrc;
     output reg Branch;
@@ -47,7 +47,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
     always @(posedge Clk or posedge Rst) begin
         if (Rst) begin
             RegDst <= 0;
-            ALUOp <= 2'b00;
+            ALUOp <= 6'b000000;
             ALUZero <= 0;
             ALUSrc <= 0;
             Branch <= 0;
@@ -60,7 +60,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
         end 
         else begin
             RegDst <= 0;
-            ALUOp <= 2'b00;
+            ALUOp <= 6'b000000;
             ALUZero <= 0;
             ALUSrc <= 0;
             Branch <= 0;
@@ -77,7 +77,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
             case (Instruction[31:26]) 
                 6'b000000: begin // R-Type
                     RegDst <= 1;
-                    ALUOp <= 2'b00;
+                    ALUOp <= 6'b000000;
                     //ALUZero <= 0;     //doesn't matter
                     ALUSrc <= 0;
                     Branch <= 0;      
