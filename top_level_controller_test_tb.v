@@ -6,7 +6,8 @@ module top_level_controller_test_tb;
     reg Clk;
     reg Rst;
     reg [31:0] Instruction;
-    reg [5:0] A, B;
+    reg [5:0] A;
+    reg [31:0] B;
 
     // Outputs
     wire [31:0] ALUResult;
@@ -69,6 +70,14 @@ module top_level_controller_test_tb;
         Instruction = 32'b100011_00001_00010_0000000000000100;  // lw $2, 4($1)
         A = 32'd4;  // base address
         B = 32'd100; // offset
+        $display("A = %d, B = %d", A, B);
+        #10;
+        
+        // Test case 4.5: SW (I-type instruction)
+        Instruction = 32'b101011_00001_00010_0000000000000100;  // lw $2, 4($1)
+        A = 32'd4;  // base address
+        B = 32'd10; // offset
+        $display("A = %d, B = %d", A, B);
         #10;
 
         // Test case 5: BEQ (Branch instruction)
