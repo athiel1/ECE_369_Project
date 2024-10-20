@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module top_level_controller_test(Clk, Rst, Instruction, A, B);
+module top_level_controller_test(Clk, Rst, Instruction, A, B, ALUResult, PCSrc);
 
     input wire Clk;
     input wire Rst;
