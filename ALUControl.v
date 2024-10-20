@@ -3,7 +3,6 @@
 module ALUControl(ALUOp, funct, op, ALUControl);
   input [1:0] ALUOp;
   input [5:0] funct;
-  input [5:0] op;
 
   output reg [5:0] ALUControl;
 
