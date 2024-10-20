@@ -6,7 +6,7 @@ module top_level_controller_test(Clk, Rst, Instruction, A, B, ALUResult, PCSrc);
     input wire Rst;
     input [31:0] Instruction; // Instruction input to Controller
     input [5:0] A;           // Operand A to ALU
-    input [5:0] B;           // Operand B to ALU
+    input [31:0] B;           // Operand B to ALU
 
     wire [5:0] funct;
     wire Zero;
@@ -17,7 +17,7 @@ module top_level_controller_test(Clk, Rst, Instruction, A, B, ALUResult, PCSrc);
     output [31:0] ALUResult;  // Result from ALU
     output PCSrc;
 
-    funct = Instruction[5:0];
+    assign funct = Instruction[5:0];
 
     //Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite)
     Controller b1(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite);
