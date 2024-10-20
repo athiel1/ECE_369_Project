@@ -70,15 +70,14 @@ module ALUControl(ALUOp, funct, I_op, ALUControl);
 			  ALUControl = 6'b000001;
 		  6'b000110: // BLEZ
 			  ALUControl = 6'b000001;
-		  6'b000010: // J
-			  ALUControl = 6'b000001;
-		  6'b000011: // JAL
-			  ALUControl = 6'b000001;
 	  endcase
       end
 
-      2'b10: begin  // branch instruction
-          ALUControl = 6'b100010;
+      2'b10: begin  // jump instruction
+          	  6'b000010: // J
+			  ALUControl = 6'b000001;
+		  6'b000011: // JAL
+			  ALUControl = 6'b000001;
       end
 
     endcase
