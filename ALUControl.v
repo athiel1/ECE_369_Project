@@ -48,7 +48,7 @@ module ALUControl(ALUOp, funct, I_op, ALUControl);
 			  ALUControl = 6'b100101;
 		  6'b001110: // XORI
 			  ALUControl = 6'b100101;
-		  6'b001010: // SLTI
+		  6'b001010: // SLTI //
 			  ALUControl = 6'b101010;
 		  6'b101000: // Store byte
 			  ALUControl = 6'b101000;
@@ -58,7 +58,7 @@ module ALUControl(ALUOp, funct, I_op, ALUControl);
 			  ALUControl = 6'b101001;
 		  6'b100001: // Load half
 			  ALUControl = 6'b100001;
-		  6'b000001: // BLTZ
+		  6'b000001: // BLTZ & BGEZ //
 			  ALUControl = 6'b000001;
 		  6'b000100: // BEQ
 			  ALUControl = 6'b000001;
