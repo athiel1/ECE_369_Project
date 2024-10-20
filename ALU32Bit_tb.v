@@ -4,7 +4,8 @@ module ALU32Bit_tb;
 
     // Inputs
     reg [5:0] ALUControl;
-    reg [31:0] A, B;
+    reg [5:0] A;
+    reg [31:0] B;
 
     // Outputs
     wire [31:0] ALUResult;
