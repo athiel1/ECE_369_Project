@@ -77,7 +77,7 @@ module ALUControl(ALUOp, funct, I_op, ALUControl);
 	  endcase
       end
 
-      2'b10: begin
+      2'b10: begin  // branch instruction
           ALUControl = 6'b100010;
       end
 
