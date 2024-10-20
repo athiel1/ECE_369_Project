@@ -268,7 +268,7 @@ module Controller(Clk, Rst, Instruction, RegDst, ALUOp, ALUZero, ALUSrc, Branch,
                     //PCSrc <= Branch & Zero;       
                 end
                 
-                //FIXME: add instructions for j, jr, jal
+                
                 6'b000010: begin // j
                     RegDst <= 0;
                     ALUOp <= 2'b10;
