@@ -8,33 +8,34 @@ module ALUControl(ALUOp, funct, ALUControl);
 
   always @(ALUOp, funct) begin
     case(ALUOp)
-      6'b000000: begin  // R-type instructions
+    6'b000000: begin  // R-type instructions
         case (funct)
           6'b100000: // ADD 
               ALUControl = 6'b100000;
-	  6'b100010: // SUB
+	      6'b100010: // SUB
               ALUControl = 6'b100010;
-	  6'b011000: // MUL
+	       6'b011000: // MUL
               ALUControl = 6'b011000;
-	  6'b100100: // AND
+	       6'b100100: // AND
               ALUControl = 6'b100100;
-	  6'b100101: // OR
+	       6'b100101: // OR
               ALUControl = 6'b100101;
-	  6'b100111: // NOR
+	       6'b100111: // NOR
               ALUControl = 6'b100111;
-	  6'b100110: // XOR
+	       6'b100110: // XOR
               ALUControl = 6'b100110;
-	  6'b000000: // sll
+	       6'b000000: // sll
               ALUControl = 6'b000000;
-	  6'b000010: // srl
+	       6'b000010: // srl
               ALUControl = 6'b000010;
-          6'b101010: // slt
+            6'b101010: // slt
 	      ALUControl = 6'b101010;
-	  6'b001000: // jr
+	       6'b001000: // jr
 	      ALUControl = 6'b001000;
-        endcase
+	    endcase
+	end
 
-        6'b101011: // SW
+    6'b101011: // SW
 		ALUControl = 6'b100000;
 	6'b100011: // LW
 		ALUControl = 6'b100000;
