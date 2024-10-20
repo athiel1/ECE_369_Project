@@ -75,9 +75,9 @@ module ALUControl(ALUOp, funct, I_op, ALUControl);
 
       2'b10: begin  // jump instruction
           	  6'b000010: // J
-			  ALUControl = 6'bxxxxxx;
+			  ALUControl = 6'b000010;
 		  6'b000011: // JAL
-			  ALUControl = 6'bxxxxxx;
+			  ALUControl = 6'b000011;
       end
 
     endcase
