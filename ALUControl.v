@@ -31,6 +31,8 @@ module ALUControl(ALUOp, funct, I_op, ALUControl);
               ALUControl = 6'b000010;
           6'b101010: // slt
 	      ALUControl = 6'b101010;
+	  6'b001000: // jr
+	      ALUControl = 6'b001000;
         endcase
       end
 
