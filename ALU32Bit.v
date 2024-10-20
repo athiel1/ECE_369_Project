@@ -85,8 +85,14 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			  	ALUResult = A + B;
 
 			//FIXME below
-			6'b000001: // BGEZ
-			  	ALUResult = (A >= 0) ? 32'b0 : 32'b1;
+			6'b000001: begin // BGEZ & BLTZ
+				if (B == 1) begin
+					ALUResult = (A >= 0) ? 32'b0 : 32'b1;
+				end
+				else (B == 0) begin
+					ALUResult = (A < 0) ? 32'b0 : 32'b1;
+				end
+			end
             		6'b000011: // BLTZ
 			  	ALUResult = (A < 0) ? 32'b0 : 32'b1;
 		  	6'b000100: // BEQ
