@@ -8,7 +8,7 @@
 module SignExtension(Instruction, out);
 
     /* A 16-Bit input word */
-    input [15:0] in;
+    //input [15:0] in;
     input [31:0] Instruction;
 
     wire [15:0]in;
