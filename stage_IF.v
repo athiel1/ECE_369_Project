@@ -47,19 +47,22 @@ module stage_IF(PCSrc, AddALU_out, Instruction, PCAdder_out);
     output [31:0] Instruction;
     output [31:0] PCAdder_out;
 
-    wire mux_out;
+    wire mux4_result;
     wire [31:0] PCResult;
     
     //wire ClkOut;
     //wire [31:0] PCResult; //do we need to declare this again?
+
+    //Mux32Bit2To1(inA, inB, sel, out);
+    Mux32Bit2To1 a1(PCAdder_out, AddALU_out, PCSrc, mux4_result);
     
     //ProgramCounter(Address, PCResult);
-    ProgramCounter a1(Address, PCResult);
+    ProgramCounter a2(mux4_result, PCResult);
     
     //PCAdder(PCResult, PCAddResult);
-    PCAdder a2(PCResult, PCAddResult);
+    PCAdder a3(PCResult, PCAdder_out);
     
     //InstructionMemory(Address, Instruction);
-    InstructionMemory a3(PCResult, Instruction);
+    InstructionMemory a4(PCResult, Instruction);
     
 endmodule
