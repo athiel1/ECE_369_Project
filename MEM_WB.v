@@ -9,11 +9,11 @@ module MEM_WB(MemtoReg_in_MEMWB, RegWrite_in_MEMWB, ALUResult_in_MEMWB, ReadData
   input [4:0] ReadData2_in_MEMWB;
   input [4:0] mux2_result_in_MEMWB;
 
-  output MemtoReg_out_MEMWB;
-  output RegWrite_out_MEMWB;
-  output [31:0]ALUResult_out_MEMWB;
-  output [4:0] ReadData2_out_MEMWB;
-  output [4:0] mux2_result_out_MEMWB;
+  output reg MemtoReg_out_MEMWB;
+  output reg RegWrite_out_MEMWB;
+  output reg [31:0]ALUResult_out_MEMWB;
+  output reg [4:0] ReadData2_out_MEMWB;
+  output reg [4:0] mux2_result_out_MEMWB;
 
   always @(*) begin
     MemtoReg_out_MEMWB = MemtoReg_in_MEMWB;
