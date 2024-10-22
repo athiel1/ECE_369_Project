@@ -21,20 +21,20 @@ module IF_ID(PCAddResult_in_IDEX, ReadData1_in_IDEX, ReadData2_in_IDEX, signExte
   input ALUSrc_in_IDEX; 
 
   
-  output [31:0] PCAddResult_out_IDEX;
-  output [4:0] ReadData1_out_IDEX;
-  output [4:0] ReadData2_out_IDEX;
-  output [31:0] signExtend_out_IDEX;
-  output [4:0] rt_out_IDEX;
-  output [15:0] rd_out_IDEX;
-  output RegWrite_out_IDEX;
-  output MemtoReg_out_IDEX;
-  output Branch_out_IDEX;
-  output MemRead_out_IDEX;
-  output MemWrite_out_IDEX;
-  output RegDst_out_IDEX;
-  output [5:0] ALUOp_out_IDEX;
-  output ALUSrc_out_IDEX;
+  output reg [31:0] PCAddResult_out_IDEX;
+  output reg [4:0] ReadData1_out_IDEX;
+  output reg [4:0] ReadData2_out_IDEX;
+  output reg [31:0] signExtend_out_IDEX;
+  output reg [4:0] rt_out_IDEX;
+  output reg [15:0] rd_out_IDEX;
+  output reg RegWrite_out_IDEX;
+  output reg MemtoReg_out_IDEX;
+  output reg Branch_out_IDEX;
+  output reg MemRead_out_IDEX;
+  output reg MemWrite_out_IDEX;
+  output reg RegDst_out_IDEX;
+  output reg [5:0] ALUOp_out_IDEX;
+  output reg ALUSrc_out_IDEX;
 
   always @(*) begin
     PCAddResult_out_IDEX <= PCAddResult_in_IDEX;
