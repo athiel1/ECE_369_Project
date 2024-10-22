@@ -53,8 +53,8 @@ module stage_IF(PCSrc, AddALU_out, Instruction, PCAdder_out);
     //wire ClkOut;
     //wire [31:0] PCResult; //do we need to declare this again?
     
-    //ProgramCounter(Address, PCResult, Reset, Clk);
-    ProgramCounter a1(PCAddResult, PCResult, Reset, Clk);
+    //ProgramCounter(Address, PCResult);
+    ProgramCounter a1(Address, PCResult);
     
     //PCAdder(PCResult, PCAddResult);
     PCAdder a2(PCResult, PCAddResult);
