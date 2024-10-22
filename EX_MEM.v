@@ -1,33 +1,41 @@
 `timescale 1ns / 1ps
 
-module EX_MEM(WB_in_EXMEM, M_in_EXMEM, addResult_in_EXMEM, ALUZero_in_EXMEM, ALUResult_in_EXMEM, readReg2_in_EXMEM, muxResult_in_EXMEM,
-              WB_out_EXMEM, Branch_EXMEM, MemRead_EXMEM, MemWrite_EXMEM, addResult_out_EXMEM, ALUZero_out_EXMEM, ALUResult_out_EXMEM, readReg2_out_EXMEM, muxResult_out_EXMEM); 
+module EX_MEM(MemWrite_in_EXMEM, MemRead_in_EXMEM, Branch_in_EXMEM, MemtoReg_in_EXMEM, RegWrite_in_EXMEM, ALUAddResult_in_EXMEM, Zero_in_EXMEM, ALUResult_in_EXMEM, ReadData2_in_EXMEM, mux2_Result_in_EXMEM,
+               MemWrite_out_EXMEM, MemRead_out_EXMEM, Branch_out_EXMEM, MemtoReg_out_EXMEM, RegWrite_out_EXMEM, ALUAddResult_out_EXMEM, Zero_out_EXMEM, ALUResult_out_EXMEM, ReadData2_out_EXMEM, mux2_Result_out_EXMEM);
   
-  input [31:0] WB_in_EXMEM;
-  input [31:0] M_in_EXMEM;
-  input [31:0] addResult_in_EXMEM;
-  input ALUZero_in_EXMEM;
+  input MemWrite_in_EXMEM;
+  input MemRead_in_EXMEM;
+  input Branch_in_EXMEM;
+  input MemtoReg_in_EXMEM;
+  input RegWrite_in_EXMEM;
+  input [31:0] ALUAddResult_in_EXMEM;
+  input Zero_in_EXMEM;
   input [31:0] ALUResult_in_EXMEM;
-  input [4:0] readReg2_in_EXMEM;
-  input [4:0] muxResult_in_EXMEM;
+  input [4:0] ReadData2_in_EXMEM;
+  input [4:0] mux2_Result_in_EXMEM;
 
-  output [31:0] WB_out_EXMEM;
-  output Branch_EXMEM;
-  output MemRead_EXMEM;
-  output MemWrite_EXMEM;
-  output [31:0] addResult_out_EXMEM;
-  output ALUZero_out_EXMEM;
+  output MemWrite_out_EXMEM;
+  output MemRead_out_EXMEM;
+  output Branch_out_EXMEM;
+  output MemtoReg_out_EXMEM;
+  output RegWrite_out_EXMEM;
+  output [31:0] ALUAddResult_out_EXMEM;
+  output Zero_out_EXMEM;
   output [31:0] ALUResult_out_EXMEM;
-  output [4:0] readReg2_out_EXMEM;
-  output [4:0] muxResult_out_EXMEM;
+  output [4:0] ReadData2_out_EXMEM;
+  output [4:0] mux2_Result_out_EXMEM;
 
   always @(*) begin
-    WB_out = WB_in_EXMEM;
-    addResult_out_EXMEM = addResult_in_EXMEM;
-    ALUZero_out_EXMEM = ALUZero_in_EXMEM;
-    ALUResult_out_EXMEM = ALUResult_in_EXMEM;
-    readReg2_out_EXMEM = readReg2_in_EXMEM;
-    muxResult_out_EXMEM = muxResult_in_EXMEM;
+      MemWrite_out_EXMEM = MemWrite_out_EXMEM;
+      MemRead_out_EXMEM = MemRead_out_EXMEM;
+      Branch_out_EXMEM = Branch_out_EXMEM;
+      MemtoReg_out_EXMEM = MemtoReg_out_EXMEM;
+      RegWrite_out_EXMEM = RegWrite_out_EXMEM;
+      ALUAddResult_out_EXMEM = ALUAddResult_out_EXMEM;
+      Zero_out_EXMEM = Zero_out_EXMEM;
+      ALUResult_out_EXMEM = ALUResult_out_EXMEM;
+      ReadData2_out_EXMEM = ReadData2_out_EXMEM;
+      mux2_Result_out_EXMEM = mux2_Result_out_EXMEM;
   end
 
 
