@@ -32,6 +32,23 @@ module stage_EX ();
   wire mux1_result;
   wire ALUControl;
 
+  //ShiftLeft2(in, out);
+  ShiftLeft2 c1(SignExtResult, SL_result);
+  
+  //ALUAdd(A, B, ALUAddResult);
+  ALUAdd c2(PCAddResult, SL_result, ALUAddResult);
+
+  //Mux32Bit2To1(inA, inB, sel, out);
+  Mux32Bit2To1 c3(ReadData2_in, SignExtResult, ALUSrc, mux1_result);
+
+  //ALUControl(ALUOp, funct, ALUControl);
+  ALUControl c4(ALUOp, SignExtResult, ALUControl);    // if there is an error, we want 6 bits from SignExtResult
+
+  //ALU32Bit(ALUControl, A, B, ALUResult, Zero);
+  ALU32Bit c5(ALUControl, ReadData1, mux1_result, ALUResult, Zero);
+
+  //Mux32Bit2To1(inA, inB, sel, out);
+  Mux32Bit2To1 c6(rt, rd, RegDst, mux2_result);
   
 
   
