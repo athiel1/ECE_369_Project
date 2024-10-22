@@ -21,6 +21,11 @@ module stage_ID (PCAddResult_in, Instruction, WriteRegister, WriteData, RegWrite
   output [31:0] SignExtResult;
   output [4:0] rt;
   output [4:0] rd;
+
+  assign PCAddResult_out = PCAddResult_in;
+  assign rt = Instruction[20:16];
+  assign rd = Instruction[15:11];
+  
   
   //RegisterFile(Instruction, WriteRegister, WriteData, RegWrite, ReadData1, ReadData2);
   RegisterFile b1(Instruction, WriteRegister, WriteData, RegWrite_in, ReadData1, ReadData2);
