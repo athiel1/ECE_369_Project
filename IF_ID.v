@@ -1,17 +1,17 @@
 `timescale 1ns / 1ps
 
 
-module IF_ID(PC_in, instructionMem_in, PC_out, instructionMem_out); 
+module IF_ID(PC_in_IFID, instructionMem_in_IFID, PC_out_IFID, instructionMem_out_IFID); 
   
-  input [31:0] PC_in;
-  input [31:0] instructionMem_in;
+  input [31:0] PC_in_IFID;
+  input [31:0] instructionMem_in_IFID;
 
-  output [31:0] PC_out;
-  output [31:0] instructionMem_out;
+  output [31:0] PC_out_IFID;
+  output [31:0] instructionMem_out_IFID;
 
   always @(*) begin
-    PC_out <= PC_in;
-    instructionMem_out <= instructionMem_in;
+    PC_out_IFID <= PC_in_IFID;
+    instructionMem_out_IFID <= instructionMem_in_IFID;
   end
 
 
