@@ -22,7 +22,6 @@ module stage_EX (RegWrite_in, MemtoReg_in, Branch_in, MemRead_in, RegDst, ALUOp,
   output Branch_out;
   output MemRead_out;
   output MemWrite_out;
-  output RegWrite_out;
   output [31:0] ALUAddResult;
   output Zero;
   output [31:0] ALUResult;
@@ -32,6 +31,13 @@ module stage_EX (RegWrite_in, MemtoReg_in, Branch_in, MemRead_in, RegDst, ALUOp,
   wire SL_result;
   wire mux1_result;
   wire ALUControl;
+
+  assign RegWrite_out = RegWrite_in;
+  assign MemtoReg_out = MemtoReg_in;
+  assign Branch_out = Branch_in;
+  assign MemRead_out = MemRead_in;
+  assign MemWrite_out = MemWrite_in;
+  assign ReadData2_out = ReadData2_in;
 
   //ShiftLeft2(in, out);
   ShiftLeft2 c1(SignExtResult, SL_result);
