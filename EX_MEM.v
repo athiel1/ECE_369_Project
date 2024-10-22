@@ -14,28 +14,28 @@ module EX_MEM(MemWrite_in_EXMEM, MemRead_in_EXMEM, Branch_in_EXMEM, MemtoReg_in_
   input [4:0] ReadData2_in_EXMEM;
   input [4:0] mux2_Result_in_EXMEM;
 
-  output MemWrite_out_EXMEM;
-  output MemRead_out_EXMEM;
-  output Branch_out_EXMEM;
-  output MemtoReg_out_EXMEM;
-  output RegWrite_out_EXMEM;
-  output [31:0] ALUAddResult_out_EXMEM;
-  output Zero_out_EXMEM;
-  output [31:0] ALUResult_out_EXMEM;
-  output [4:0] ReadData2_out_EXMEM;
-  output [4:0] mux2_Result_out_EXMEM;
+  output reg MemWrite_out_EXMEM;
+  output reg MemRead_out_EXMEM;
+  output reg Branch_out_EXMEM;
+  output reg MemtoReg_out_EXMEM;
+  output reg RegWrite_out_EXMEM;
+  output reg [31:0] ALUAddResult_out_EXMEM;
+  output reg Zero_out_EXMEM;
+  output reg [31:0] ALUResult_out_EXMEM;
+  output reg [4:0] ReadData2_out_EXMEM;
+  output reg [4:0] mux2_Result_out_EXMEM;
 
   always @(*) begin
-      MemWrite_out_EXMEM = MemWrite_out_EXMEM;
-      MemRead_out_EXMEM = MemRead_out_EXMEM;
-      Branch_out_EXMEM = Branch_out_EXMEM;
-      MemtoReg_out_EXMEM = MemtoReg_out_EXMEM;
-      RegWrite_out_EXMEM = RegWrite_out_EXMEM;
-      ALUAddResult_out_EXMEM = ALUAddResult_out_EXMEM;
-      Zero_out_EXMEM = Zero_out_EXMEM;
-      ALUResult_out_EXMEM = ALUResult_out_EXMEM;
-      ReadData2_out_EXMEM = ReadData2_out_EXMEM;
-      mux2_Result_out_EXMEM = mux2_Result_out_EXMEM;
+      MemWrite_out_EXMEM <= MemWrite_out_EXMEM;
+      MemRead_out_EXMEM <= MemRead_out_EXMEM;
+      Branch_out_EXMEM <= Branch_out_EXMEM;
+      MemtoReg_out_EXMEM <= MemtoReg_out_EXMEM;
+      RegWrite_out_EXMEM <= RegWrite_out_EXMEM;
+      ALUAddResult_out_EXMEM <= ALUAddResult_out_EXMEM;
+      Zero_out_EXMEM <= Zero_out_EXMEM;
+      ALUResult_out_EXMEM <= ALUResult_out_EXMEM;
+      ReadData2_out_EXMEM <= ReadData2_out_EXMEM;
+      mux2_Result_out_EXMEM <= mux2_Result_out_EXMEM;
   end
 
 
