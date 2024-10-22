@@ -61,14 +61,14 @@ module RegisterFile(Instruction, WriteRegister, WriteData, RegWrite, ReadData1, 
     
 	reg [31:0] RegisterFile[31:0];
     
-	always @(negedge Clk) begin
+	always @(*) begin
 		//ReadData1 <= RegisterFile[ReadRegister1];
 		ReadData1 <= RegisterFile[Instruction[25:21]];
 		//ReadData2 <= RegisterFile[ReadRegister2];
         	ReadData2 <= RegisterFile[Instruction[20:16]];
 	end
 	
-	always @(posedge Clk) begin
+	always @(*) begin
 		if (RegWrite == 1) begin 
 	       		//RegisterFile[WriteRegister] <= WriteData;
 	       		RegisterFile[Instruction[15:11]] <= WriteData;
@@ -76,7 +76,6 @@ module RegisterFile(Instruction, WriteRegister, WriteData, RegWrite, ReadData1, 
 	end
 
 endmodule
-
 
 
 
