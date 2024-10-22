@@ -2,7 +2,6 @@
 
 module MEM_WB(WB_in_MEMWB, readMem_in_MEMWB, ALUResult_in_MEMWB, muxResult_in_MEMWB, RegWrite_MEMWB, MemtoRead_MEMWB, readMem_out_MEMWB, ALUResult_out_MEMWB, muxResult_out_MEMWB);
   
-  input [31:0] WB_in_MEMWB;
   input [31:0] readMem_in_MEMWB;
   input [31:0] ALUResult_in_MEMWB;
   input [31:0] muxResult_in_MEMWB;
