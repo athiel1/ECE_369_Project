@@ -1,4 +1,5 @@
-module stage_EX ();
+module stage_EX (RegWrite_in, MemtoReg_in, Branch_in, MemRead_in, RegDst, ALUOp, ALUSrc, PCSrc_in, PCAddResult, PCAddResult, ReadData1, ReadData2_in, SignExtResult, rt, rd, 
+                 RegWrite_out, MemtoReg_out, Branch_out, MemRead_out, MemWrite_out, PCSrc_out, ALUAddResult, Zero, ALUResult, ReadData2_out, mux2_result);
 
   input RegWrite_in;
   input MemtoReg_in;
