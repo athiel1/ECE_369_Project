@@ -22,7 +22,13 @@ module stage_ID (PCAddResult_in, Instruction, WriteRegister, WriteData, RegWrite
   output [4:0] rt;
   output [4:0] rd;
   
-  
-  
+  //RegisterFile(Instruction, WriteRegister, WriteData, RegWrite, ReadData1, ReadData2);
+  RegisterFile b1(Instruction, WriteRegister, WriteData, RegWrite_in, ReadData1, ReadData2);
+
+  //SignExtension(Instruction, out);
+  SignExtension b2(Instruction, SignExtResult);
+
+  //Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite);
+  Controller b3(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite_out);
 
 endmodule
