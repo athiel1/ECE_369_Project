@@ -43,21 +43,19 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
 
     //always @(posedge Clk or posedge Rst) begin
     always @(*) begin
-        if (Rst) begin
+       // if (Rst) begin
+        //    RegDst <= 0;
+         //   ALUOp <= 6'b000000;
+         //   ALUSrc <= 0;
+          //  Branch <= 0;
+         //   MemRead <= 0;
+          //  MemWrite <= 0;
+         //   MemtoReg <= 0;
+         //   RegWrite <= 0;
+       //// end 
+      //  else begin
             RegDst <= 0;
             ALUOp <= 6'b000000;
-            ALUZero <= 0;
-            ALUSrc <= 0;
-            Branch <= 0;
-            MemRead <= 0;
-            MemWrite <= 0;
-            MemtoReg <= 0;
-            RegWrite <= 0;
-        end 
-        else begin
-            RegDst <= 0;
-            ALUOp <= 6'b000000;
-            ALUZero <= 0;
             ALUSrc <= 0;
             Branch <= 0;
             MemRead <= 0;
@@ -290,7 +288,9 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                 
             endcase
         end
-    end
+   // end
 
 
 endmodule
+
+
