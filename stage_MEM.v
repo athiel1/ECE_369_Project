@@ -7,7 +7,7 @@ module stage_MEM (MemWrite, MemRead, Branch, MemtoReg_in, RegWrite_in, Zero, ALU
   input MemtoReg_in;
   input RegWrite_in;
   input Zero;
-  input ALUResult_in;
+  input [31:0]ALUResult_in;
   input [4:0] ReadData2;
   input [4:0] mux2_result_in;
 
@@ -17,7 +17,12 @@ module stage_MEM (MemWrite, MemRead, Branch, MemtoReg_in, RegWrite_in, Zero, ALU
   output [4:0] mux2_result_out;
   output ReadData;
   output RegWrite_out;
-  output [31:0] ALUAddResult;
+  // maybe need ALUAddResult. But it goes through pipeline
+
+  assign RegWrite_out = RegWrite_in;
+  assign MemtoReg_out = MemtoReg_in;
+  assign ALUResult_out = ALUResult_in;
+  assign mux2_result_out = mux2_result_in;
   
   //Branch(Branch, Zero, PCSrc);
   Branch d1(Branch, Zero, PCSrc);
