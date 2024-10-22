@@ -1,33 +1,33 @@
 `timescale 1ns / 1ps
 
-module EX_MEM(WB_in, M_in, addResult_in, ALUZero_in, ALUResult_in, readReg2_in, muxResult_in,
-              WB_out, Branch, MemRead, MemWrite, addResult_out, ALUZero_out, ALUResult_out, readReg2_out, muxResult_out); 
+module EX_MEM(WB_in_EXMEM, M_in_EXMEM, addResult_in_EXMEM, ALUZero_in_EXMEM, ALUResult_in_EXMEM, readReg2_in_EXMEM, muxResult_in_EXMEM,
+              WB_out_EXMEM, Branch_EXMEM, MemRead_EXMEM, MemWrite_EXMEM, addResult_out_EXMEM, ALUZero_out_EXMEM, ALUResult_out_EXMEM, readReg2_out_EXMEM, muxResult_out_EXMEM); 
   
-  input [31:0] WB_in;
-  input [31:0] M_in
-  input [31:0] addResult_in;
-  input ALUZero_in;
-  input [31:0] ALUResult_in;
-  input [4:0] readReg2_in;
-  input [4:0] muxResult_in;
+  input [31:0] WB_in_EXMEM;
+  input [31:0] M_in_EXMEM;
+  input [31:0] addResult_in_EXMEM;
+  input ALUZero_in_EXMEM;
+  input [31:0] ALUResult_in_EXMEM;
+  input [4:0] readReg2_in_EXMEM;
+  input [4:0] muxResult_in_EXMEM;
 
-  output [31:0] WB_out;
-  output Branch;
-  output MemRead;
-  output MemWrite;
-  output [31:0] addResult_out;
-  output ALUZero_out;
-  output [31:0] ALUResult_out;
-  output [4:0] readReg2_out;
-  output [4:0] muxResult_out;
+  output [31:0] WB_out_EXMEM;
+  output Branch_EXMEM;
+  output MemRead_EXMEM;
+  output MemWrite_EXMEM;
+  output [31:0] addResult_out_EXMEM;
+  output ALUZero_out_EXMEM;
+  output [31:0] ALUResult_out_EXMEM;
+  output [4:0] readReg2_out_EXMEM;
+  output [4:0] muxResult_out_EXMEM;
 
   always @(*) begin
-    WB_out = WB_in;
-    addResult_out = addResult_in;
-    ALUZero_out = ALUZero_in;
-    ALUResult_out = ALUResult_in;
-    readReg2_out = readReg2_in;
-    muxResult_out = muxResult_in;
+    WB_out = WB_in_EXMEM;
+    addResult_out_EXMEM = addResult_in_EXMEM;
+    ALUZero_out_EXMEM = ALUZero_in_EXMEM;
+    ALUResult_out_EXMEM = ALUResult_in_EXMEM;
+    readReg2_out_EXMEM = readReg2_in_EXMEM;
+    muxResult_out_EXMEM = muxResult_in_EXMEM;
   end
 
 
