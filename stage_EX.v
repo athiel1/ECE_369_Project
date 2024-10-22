@@ -26,7 +26,13 @@ module stage_EX ();
   output Zero;
   output [31:0] ALUResult;
   output ReadData2_out;
-  output mux2_out;
+  output mux2_result;
+
+  wire SL_result;
+  wire mux1_result;
+  wire ALUControl;
+
+  
 
   
 
