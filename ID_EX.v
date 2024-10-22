@@ -10,7 +10,7 @@ module IF_ID(PCAddResult_in_IDEX, ReadData1_in_IDEX, ReadData2_in_IDEX, signExte
   input [4:0] ReadData2_in_IDEX;
   input [31:0] signExtend_in_IDEX;
   input [4:0] rt_in_IDEX;
-  input [15:0] rd_in_IDEX;
+  input [4:0] rd_in_IDEX;
   input RegWrite_in_IDEX;
   input MemtoReg_in_IDEX;
   input Branch_in_IDEX;
