@@ -25,7 +25,7 @@ module stage_EX (RegWrite_in_EX, MemtoReg_in_EX, Branch_in_EX, MemRead_in_EX, Me
   output Zero_EX;
   output [31:0] ALUResult_EX;
   output ReadData2_out_EX;
-  output mux2_result;
+  output mux2_result_EX;
 
   wire SL_result_EX;
   wire mux1_result_EX;
