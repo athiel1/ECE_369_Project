@@ -1,5 +1,5 @@
 module stage_MEM (MemWrite, MemRead, Branch, MemtoReg_in, RegWrite_in, Zero, ALUResult_in, ReadData2, mux2_result_in,
-                 MemtoReg_out, PCSrc, ALUResult_out, mux2_result_out, ReadData, RegWrite_out, ALUAddResult);
+                 MemtoReg_out, PCSrc, ALUResult_out, mux2_result_out, ReadData, RegWrite_out);
 
   input MemWrite;
   input MemRead;
