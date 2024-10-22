@@ -1,15 +1,15 @@
-module stage_WB (ReadData, ALUResult, MemtoReg, RegWrite, mux3_result, mux2_result);
+module stage_WB (ReadData_WB, ALUResult_WB, MemtoReg_WB, RegWrite_WB, mux3_result_WB, mux2_result_WB);
 
-  input [31:0] ReadData;
-  input [31:0] ALUResult;
-  input MemtoReg;
+  input [31:0] ReadData_WB;
+  input [31:0] ALUResult_WB;
+  input MemtoReg_WB;
 
-  output RegWrite;
-  output mux3_result;
-  output mux2_result;
+  output RegWrite_WB;
+  output mux3_result_WB;
+  output mux2_result_WB;
 
   //Mux32Bit2To1(inA, inB, sel, out);
-  Mux32Bit2To1 e1(ReadData, ALUResult, MemtoReg, mux3_result);
+  Mux32Bit2To1 e1(ReadData_WB, ALUResult_WB, MemtoReg_WB, mux3_result_WB);
   
 
 endmodule
