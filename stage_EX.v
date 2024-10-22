@@ -9,7 +9,7 @@ module stage_EX (RegWrite_in, MemtoReg_in, Branch_in, MemRead_in, RegDst, ALUOp,
   input RegDst;
   input [5:0] ALUOp;
   input ALUSrc;
-  input PCSrc_in;
+  input RegWrite_in;
   input [31:0] PCAddResult;
   input [4:0] ReadData1;
   input [4:0] ReadData2_in;
@@ -22,7 +22,7 @@ module stage_EX (RegWrite_in, MemtoReg_in, Branch_in, MemRead_in, RegDst, ALUOp,
   output Branch_out;
   output MemRead_out;
   output MemWrite_out;
-  output PCSrc_out;
+  output RegWrite_out;
   output [31:0] ALUAddResult;
   output Zero;
   output [31:0] ALUResult;
