@@ -1,45 +1,45 @@
 `timescale 1ns / 1ps
 
 
-module IF_ID(PC_in, readReg1_in, readReg2_in, signExtend_in, instr_rt_in, instr_rd_in, control_WB_in, control_M_in, control_EX_in, 
-             PC_out, readReg1_out, readReg2_out, signExtend_out, instr_rt_out, instr_rd_out, control_WB_out, control_M_out, RegDst,
-             ALUOp, ALUSrc); 
+module IF_ID(PC_in_IDEX, readReg1_in_IDEX, readReg2_in_IDEX, signExtend_in_IDEX, instr_rt_in_IDEX, instr_rd_in_IDEX, control_WB_in_IDEX, control_M_in_IDEX, control_EX_in_IDEX, 
+             PC_out_IDEX, readReg1_out_IDEX, readReg2_out_IDEX, signExtend_out_IDEX, instr_rt_out_IDEX, instr_rd_out_IDEX, control_WB_out_IDEX, control_M_out_IDEX, RegDst_IDEX,
+             ALUOp_IDEX, ALUSrc_IDEX); 
   
-  input [31:0] PC_in;
-  input [4:0] readReg1_in;
-  input [4:0] readReg2_in;
-  input [31:0] signExtend_in;
-  input [4:0] instr_rt_in;
-  input [15:0] instr_rd_in;
-  input [31:0] control_WB_in;
-  input [31:0] control_M_in;
-  input [31:0] control_EX_in;  
+  input [31:0] PC_in_IDEX;
+  input [4:0] readReg1_in_IDEX;
+  input [4:0] readReg2_in_IDEX;
+  input [31:0] signExtend_in_IDEX;
+  input [4:0] instr_rt_in_IDEX;
+  input [15:0] instr_rd_in_IDEX;
+  input [31:0] control_WB_in_IDEX;
+  input [31:0] control_M_in_IDEX;
+  input [31:0] control_EX_in_IDEX;  
 
   
-  output [31:0] PC_out;
-  output [4:0] readReg1_out;
-  output [4:0] readReg2_out;
-  output [31:0] signExtend_out;
-  output [4:0] instr_rt_out;
-  output [15:0] instr_rd_out;
-  output [31:0] control_WB_out;
-  output [31:0] control_M_out;
-  output RegDst;
-  output ALUOp;
-  output ALUSrc;
+  output [31:0] PC_out_IDEX;
+  output [4:0] readReg1_out_IDEX;
+  output [4:0] readReg2_out_IDEX;
+  output [31:0] signExtend_out_IDEX;
+  output [4:0] instr_rt_out_IDEX;
+  output [15:0] instr_rd_out_IDEX;
+  output [31:0] control_WB_out_IDEX;
+  output [31:0] control_M_out_IDEX;
+  output RegDst_IDEX;
+  output ALUOp_IDEX;
+  output ALUSrc_IDEX;
 
   always @(*) begin
-    PC_out <= PC_in;
-    readReg1_out <= readReg1_in;
-    readReg2_out <= readReg2_in;
-    signExtend_out <= signExtend_in;
-    instr_rt_out <= instr_rt_in;
-    instr_rd_out <= instr_rd_in;
-    control_WB_out <= control_WB_in;
-    control_M_out <= control_M_in;
-    RegDst <= control_EX_in; // FIX ME
-    ALUOp <= control_EX_in;  // FIX ME
-    ALUSrc <= control_EX_in;  // FIX ME
+    PC_out_IDEX <= PC_in_IDEX;
+    readReg1_out_IDEX <= readReg1_in_IDEX;
+    readReg2_out_IDEX <= readReg2_in_IDEX;
+    signExtend_out_IDEX <= signExtend_in_IDEX;
+    instr_rt_out_IDEX <= instr_rt_in_IDEX;
+    instr_rd_out_IDEX <= instr_rd_in_IDEX;
+    control_WB_out_IDEX <= control_WB_in_IDEX;
+    control_M_out_IDEX <= control_M_in_IDEX;
+    RegDst_IDEX <= control_EX_in_IDEX; // FIX ME
+    ALUOp_IDEX <= control_EX_in_IDEX;  // FIX ME
+    ALUSrc_IDEX <= control_EX_in_IDEX;  // FIX ME
     
   end
 
