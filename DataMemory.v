@@ -35,11 +35,11 @@
 // of the "Address" input to index any of the 256 words. 
 ////////////////////////////////////////////////////////////////////////////////
 
-module DataMemory(Address, WriteData, Clk, MemWrite, MemRead, ReadData); 
+module DataMemory(Address, WriteData, MemWrite, MemRead, ReadData); 
 
     input [31:0] Address; 	// Input Address 
     input [31:0] WriteData; // Data that needs to be written into the address 
-    input Clk;
+    //input Clk;
     input MemWrite; 		// Control signal for memory write 
     input MemRead; 			// Control signal for memory read 
 
@@ -47,7 +47,8 @@ module DataMemory(Address, WriteData, Clk, MemWrite, MemRead, ReadData);
 
     reg[31:0] memory[1023:0];
     
-    always @(posedge Clk) begin
+    //always @(posedge Clk) begin
+    always @(*) begin
         if (MemWrite == 1) begin
             memory[Address[11:2]] <= WriteData;
         end
