@@ -5,6 +5,7 @@ Zybooks 2.10: operations tables
 NOTES Wednesday, 10/23:
 - take out store_size and load_size?
 - implement jr and jal
+- ask about data memory
 
 
 ///////// Sunday 10/20/24 /////////
