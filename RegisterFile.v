@@ -57,21 +57,21 @@ module RegisterFile(Instruction, WriteRegister, WriteData, RegWrite, ReadData1, 
 	input RegWrite;
 	//input Clk;
 	
-	output reg [4:0] ReadData1, ReadData2;
+	output reg [31:0] ReadData1, ReadData2;
     
 	reg [31:0] RegisterFile[31:0];
     
 	always @(*) begin
 		//ReadData1 <= RegisterFile[ReadRegister1];
-		ReadData1 <= RegisterFile[Instruction[25:21]];
+		ReadData1 <= RegisterFile[Instruction[25:21]];  // rs
 		//ReadData2 <= RegisterFile[ReadRegister2];
-        	ReadData2 <= RegisterFile[Instruction[20:16]];
+		ReadData2 <= RegisterFile[Instruction[20:16]];  //rt
 	end
 	
 	always @(*) begin
 		if (RegWrite == 1) begin 
 	       		//RegisterFile[WriteRegister] <= WriteData;
-	       		RegisterFile[Instruction[15:11]] <= WriteData;
+			RegisterFile[WriteRegister] <= WriteData;
 	   	end
 	end
 
