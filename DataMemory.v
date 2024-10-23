@@ -48,15 +48,29 @@ module DataMemory(Address, WriteData, MemWrite, MemRead, ReadData);
     reg[31:0] memory[1023:0];
     
     //always @(posedge Clk) begin
-    always @(*) begin
+    always @(*) begin  // store
         if (MemWrite == 1) begin
-            memory[Address[11:2]] <= WriteData;
+            case (Address[1:0])
+                2'b00:
+                    memory[Address[11:2]] <= WriteData;  // store word
+                2'b01:
+                    memory[Address[11:2]][7:0] <= WriteData[7:0];  // store byte
+                2'b10:
+                    memory[Address[11:2]][15:0] <= WriteData[15:0]  // store halfword
+            endcase
         end
     end
     
-    always @(*) begin
+    always @(*) begin  //load
         if (MemRead == 1) begin
-            ReadData <= memory[Address[11:2]];
+            case (Address[1:0])
+                2'b00:
+                    ReadData <= memory[Address[11:2]];  // load word
+                2'b01:
+                    ReadData <= {{24{memory[Address[11:2]][7]}}, memory[Address[11:2]][7:0]}; // Load byte (sign-extended)
+                2'b10:
+                    ReadData <= {{16{memory[Address[11:2]][15]}}, memory[Address[11:2]][15:0]}; // Load halfword (sign-extended)
+            endcase
         end 
         else begin
             ReadData <= 32'b0;
@@ -65,3 +79,22 @@ module DataMemory(Address, WriteData, MemWrite, MemRead, ReadData);
     
 
 endmodule
+
+
+
+
+////////////////NOTE ON SIGN EXTENDED//////////////////////////
+//Loading the Halfword:
+
+// memory[Address[11:2]] accesses the word in memory where the halfword is stored.
+// Since memory is organized in 32-bit words, you access the correct word using the address bits [11:2].
+// memory[Address[11:2]][15:0] extracts the lower 16 bits of that 32-bit word, which represents the halfword.
+// Sign Extension:
+
+// The expression {{16{memory[Address[11:2]][15]}}, memory[Address[11:2]][15:0]} does the sign extension.
+// memory[Address[11:2]][15] checks the most significant bit of the halfword (the 16th bit of the lower 16 bits). 
+// If this bit is 1, it indicates that the halfword represents a negative number in two's complement.
+// {{16{...}}} creates a 16-bit value filled with either 1s (if the halfword is negative) or 0s (if it is positive). 
+// This effectively extends the sign bit to fill the upper 16 bits of the final 32-bit result.
+
+////////////////////////////////////////////
