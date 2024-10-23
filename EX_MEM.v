@@ -1,7 +1,8 @@
 `timescale 1ns / 1ps
 
 module EX_MEM(MemWrite_in_EXMEM, MemRead_in_EXMEM, Branch_in_EXMEM, MemtoReg_in_EXMEM, RegWrite_in_EXMEM, ALUAddResult_in_EXMEM, Zero_in_EXMEM, ALUResult_in_EXMEM, ReadData2_in_EXMEM, mux2_Result_in_EXMEM,
-               MemWrite_out_EXMEM, MemRead_out_EXMEM, Branch_out_EXMEM, MemtoReg_out_EXMEM, RegWrite_out_EXMEM, ALUAddResult_out_EXMEM, Zero_out_EXMEM, ALUResult_out_EXMEM, ReadData2_out_EXMEM, mux2_Result_out_EXMEM);
+               Store_size_in_EXMEM, Load_size_in_EXMEM, MemWrite_out_EXMEM, MemRead_out_EXMEM, Branch_out_EXMEM, MemtoReg_out_EXMEM, RegWrite_out_EXMEM, ALUAddResult_out_EXMEM, Zero_out_EXMEM, ALUResult_out_EXMEM, 
+               ReadData2_out_EXMEM, mux2_Result_out_EXMEM, Store_size_out_EXMEM, Load_size_out_EXMEM);
   
   input MemWrite_in_EXMEM;
   input MemRead_in_EXMEM;
@@ -13,6 +14,8 @@ module EX_MEM(MemWrite_in_EXMEM, MemRead_in_EXMEM, Branch_in_EXMEM, MemtoReg_in_
   input [31:0] ALUResult_in_EXMEM;
   input [4:0] ReadData2_in_EXMEM;
   input [4:0] mux2_Result_in_EXMEM;
+  input [1:0] Store_size_in_EXMEM;
+  input [1:0] Load_size_in_EXMEM;
 
   output reg MemWrite_out_EXMEM;
   output reg MemRead_out_EXMEM;
@@ -24,6 +27,8 @@ module EX_MEM(MemWrite_in_EXMEM, MemRead_in_EXMEM, Branch_in_EXMEM, MemtoReg_in_
   output reg [31:0] ALUResult_out_EXMEM;
   output reg [4:0] ReadData2_out_EXMEM;
   output reg [4:0] mux2_Result_out_EXMEM;
+  output [1:0] Store_size_out_EXMEM;
+  output [1:0] Load_size_out_EXMEM;
 
   always @(*) begin
       MemWrite_out_EXMEM <= MemWrite_out_EXMEM;
@@ -36,6 +41,8 @@ module EX_MEM(MemWrite_in_EXMEM, MemRead_in_EXMEM, Branch_in_EXMEM, MemtoReg_in_
       ALUResult_out_EXMEM <= ALUResult_out_EXMEM;
       ReadData2_out_EXMEM <= ReadData2_out_EXMEM;
       mux2_Result_out_EXMEM <= mux2_Result_out_EXMEM;
+      Store_size_out_EXMEM <= Store_size_in_EXMEM;
+      Load_size_out_EXMEM <= Load_size_in_EXMEM;
   end
 
 
