@@ -10,8 +10,8 @@
 module Mux32Bit3To1(inA, inB, inC, sel, out);
     
     input [31:0] inA;
-    input [31:0] inB;
-    input [31:0] inC;
+    input [15:0] inB;
+    input [7:0] inC;
     input sel;
 
     output reg [31:0] out;
