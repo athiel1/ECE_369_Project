@@ -27,8 +27,8 @@ module EX_MEM(MemWrite_in_EXMEM, MemRead_in_EXMEM, Branch_in_EXMEM, MemtoReg_in_
   output reg [31:0] ALUResult_out_EXMEM;
   output reg [4:0] ReadData2_out_EXMEM;
   output reg [4:0] mux2_Result_out_EXMEM;
-  output [1:0] Store_size_out_EXMEM;
-  output [1:0] Load_size_out_EXMEM;
+  output reg [1:0] Store_size_out_EXMEM;
+  output reg [1:0] Load_size_out_EXMEM;
 
   always @(*) begin
       MemWrite_out_EXMEM <= MemWrite_out_EXMEM;
