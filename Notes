@@ -2,6 +2,10 @@ NOTES
 
 Zybooks 2.10: operations tables
 
+NOTES Wednesday, 10/23:
+- take out store_size and load_size?
+
+
 ///////// Sunday 10/20/24 /////////
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
