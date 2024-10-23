@@ -36,6 +36,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
     output reg MemWrite;
     output reg MemtoReg;
     output reg RegWrite;
+    output reg [1:0]Store_size;
+    output reg [1:0]Load_size;
 
     wire [5:0] operation;
     assign operation = Instruction[31:26];
@@ -62,6 +64,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
             MemWrite <= 0;
             MemtoReg <= 0;
             RegWrite <= 0;    
+            Store_size <= 0;
+            Load_size <= 0;
     
 
         $display("operation: %b", operation);
@@ -138,6 +142,12 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemtoReg <= 0;  
                     RegWrite <= 1;
                     //PCSrc <= 0;       //doesn't matter
+                    Store_size <= 0;    //doesn't matter
+                    Load_size <= 0;     // load 32 bits
+                    //Select_size <= 0, 1, 2
+                            // 0 - Word [32 bits]
+                            // 1 - half [16 bits]
+                            // 2 - byte [8 bits]
                 end
                 6'b101011: begin // Store
                     RegDst <= 0;
@@ -150,6 +160,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;
                     //PCSrc <= 0;       //doesn't matter
+                    Store_size <= 0;    // store 32 bits
+                    Load_size <= 0;     //doesn't matter
                 end
                 6'b101000: begin // Store Byte
                     RegDst <= 0;
@@ -162,6 +174,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;
                     //PCSrc <= 0;       //doesn't matter
+                    Store_size <= 2'b10;  // store 8 bits
+                    Load_size <= 0;     // doesn't matter
                 end
                 6'b100000: begin // Load Byte
                     RegDst <= 0;
@@ -174,6 +188,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemtoReg <= 0;  
                     RegWrite <= 1;
                     //PCSrc <= 0;       //doesn't matter
+                    Store_size <= 0;    //doesn't matter
+                    Load_size <= 2'b10; // load 8 bits
                 end
                 6'b101001: begin // Store half
                     RegDst <= 0;
@@ -186,6 +202,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;
                     //PCSrc <= 0;       //doesn't matter
+                    Store_size <= 2'b01;  //store 16 bits
+                    Load_size <= 0;   // doesn't matter
                 end
                 6'b100001: begin // Load half
                     RegDst <= 0;
@@ -198,6 +216,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemtoReg <= 0;  
                     RegWrite <= 1;
                     //PCSrc <= 0;       //doesn't matter
+                    Store_size <= 0;    //doesn't matter
+                    Load_size <= 2'b01; // load 16 bits
                 end
                 6'b000001: begin // BGEZ & BLTZ
                     RegDst <= 0;
