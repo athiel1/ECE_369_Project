@@ -19,6 +19,8 @@ module ID_EX(PCAddResult_in_IDEX, ReadData1_in_IDEX, ReadData2_in_IDEX, signExte
   input RegDst_in_IDEX;
   input [5:0] ALUOp_in_IDEX;
   input ALUSrc_in_IDEX; 
+  input [1:0] Store_size_in_IDEX;
+  input [1:0] Load_size_in_IDEX;
 
   
   output reg [31:0] PCAddResult_out_IDEX;
@@ -35,6 +37,8 @@ module ID_EX(PCAddResult_in_IDEX, ReadData1_in_IDEX, ReadData2_in_IDEX, signExte
   output reg RegDst_out_IDEX;
   output reg [5:0] ALUOp_out_IDEX;
   output reg ALUSrc_out_IDEX;
+  output [1:0] Store_size_out_IDEX;
+  output [1:0] Load_size_out_IDEX;
 
   always @(*) begin
     PCAddResult_out_IDEX <= PCAddResult_in_IDEX;
@@ -51,6 +55,8 @@ module ID_EX(PCAddResult_in_IDEX, ReadData1_in_IDEX, ReadData2_in_IDEX, signExte
     RegDst_out_IDEX <= RegDst_in_IDEX;
     ALUOp_out_IDEX <= ALUOp_in_IDEX;
     ALUSrc_out_IDEX <= ALUSrc_in_IDEX; 
+    Store_size_out_IDEX <= Store_size_in_IDEX;
+    Load_size_out_IDEX <= Load_size_out_IDEX;
     
   end
 
