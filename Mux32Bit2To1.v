@@ -16,14 +16,14 @@ module Mux32Bit2To1(inA, inB, sel, out);
     output reg [31:0] out;
     
     // assign out = sel? inB: inA;   for this line, no reg in line 12
-    always @(*) begin
+    always @(inA, inB) begin
 
-    if (sel == 0) begin
-        out <= inA;
-    end 
-    if (sel == 1) begin
-        out <= inB;
-    end
+        if (sel == 0) begin
+            out <= inA;
+        end 
+        if (sel == 1) begin
+            out <= inB;
+        end
     
     end
     
