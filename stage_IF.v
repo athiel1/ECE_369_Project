@@ -38,16 +38,19 @@
 // which generates a continuous clock pulse into the module.
 ////////////////////////////////////////////////////////////////////////////////
 
-module stage_IF(PCSrc_IF, AddALU_out_IF, Instruction_IF, PCAdder_out_IF);
+module stage_IF(PCSrc_IF, AddALU_out_IF, JR, ReadData1_ID, Instruction_IF, PCAdder_out_IF);
 
     //input Reset, Clk;
     input PCSrc_IF;
-    input AddALU_out_IF;
+    input [31:0] AddALU_out_IF;
+    input JR;
+    input [31:0] ReadData1_ID;
     
     output [31:0] Instruction_IF;
     output [31:0] PCAdder_out_IF;
 
     wire mux4_result_IF;
+    wire mux5_result_IF;
     wire [31:0] PCResult_IF;
     
     //wire ClkOut;
@@ -56,13 +59,16 @@ module stage_IF(PCSrc_IF, AddALU_out_IF, Instruction_IF, PCAdder_out_IF);
     //Mux32Bit2To1(inA, inB, sel, out);
     Mux32Bit2To1 a1(PCAdder_out_IF, AddALU_out_IF, PCSrc_IF, mux4_result_IF);
     
+    //Mux32Bit2To1(inA, inB, sel, out);
+    Mux32Bit2To1 a2(mux4_result_IF, ReadData1_ID, JR, mux5_result_IF);
+    
     //ProgramCounter(Address, PCResult);
-    ProgramCounter a2(mux4_result_IF, PCResult_IF);
+    ProgramCounter a3(mux5_result_IF, PCResult_IF);
     
     //PCAdder(PCResult, PCAddResult);
-    PCAdder a3(PCResult_IF, PCAdder_out_IF);
+    PCAdder a4(PCResult_IF, PCAdder_out_IF);
     
     //InstructionMemory(Address, Instruction);
-    InstructionMemory a4(PCResult_IF, Instruction_IF);
+    InstructionMemory a5(PCResult_IF, Instruction_IF);
     
 endmodule
