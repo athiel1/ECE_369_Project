@@ -60,15 +60,18 @@ module RegisterFile(Instruction, WriteRegister, WriteData, RegWrite, ReadData1, 
 	output reg [31:0] ReadData1, ReadData2;
     
 	reg [31:0] RegisterFile[31:0];
-    
-	always @(negedge Clk) begin
+	
+    //$display("Read from Register %0d: %h", Instruction[25:21], ReadData1);
+	always @(*) begin // negedge Clk
 		//ReadData1 <= RegisterFile[ReadRegister1];
 		ReadData1 <= RegisterFile[Instruction[25:21]];  // rs
+		//$display("Read from Register %0d: %h", Instruction[25:21], ReadData1);
 		//ReadData2 <= RegisterFile[ReadRegister2];
 		ReadData2 <= RegisterFile[Instruction[20:16]];  //rt
+		//$display("Read from Register %0d: %h", Instruction[20:16], ReadData2);
 	end
 	
-	always @(posedge Clk) begin
+	always @(*) begin // posedge Clk
 		if (RegWrite == 1) begin 
 	       		//RegisterFile[WriteRegister] <= WriteData;
 			RegisterFile[WriteRegister] <= WriteData;
