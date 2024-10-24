@@ -74,6 +74,7 @@ module top_level(Clk);
     //                ALUResult_in_EXMEM, ReadData2_in_EXMEM, mux2_Result_in_EXMEM, Store_size_in_EXMEM, Load_size_in_EXMEM, MemWrite_out_EXMEM, MemRead_out_EXMEM, 
     //                Branch_out_EXMEM, MemtoReg_out_EXMEM, RegWrite_out_EXMEM, ALUAddResult_out_EXMEM, Zero_out_EXMEM, ALUResult_out_EXMEM, ReadData2_out_EXMEM, 
     //                mux2_Result_out_EXMEM, Store_size_out_EXMEM, Load_size_out_EXMEM);
+    EX_MEM f6(
     
     
     
