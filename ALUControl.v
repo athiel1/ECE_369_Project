@@ -6,7 +6,7 @@ module ALUControl(ALUOp, funct, ALUControl);
 
   output reg [5:0] ALUControl;
 
-  always @(ALUOp, funct) begin
+  always @(*) begin
     case(ALUOp)
     6'b000000: begin  // R-type instructions
         case (funct)
