@@ -7,7 +7,7 @@ module ALUAdd(A, B, ALUAddResult);
     
     output reg [31:0] ALUAddResult;
     
-    always @(*) begin
+    always @(A, B) begin
         ALUAddResult <= A + B;
     end
 
