@@ -1,6 +1,7 @@
-module stage_EX (RegWrite_in_EX, MemtoReg_in_EX, Branch_in_EX, MemRead_in_EX, MemWrite_in_EX, RegDst_EX, ALUOp_EX, ALUSrc_EX, PCAddResult_EX, ReadData1_EX, ReadData2_in_EX, SignExtResult_EX, rt_EX, rd_EX, 
-                 Store_size_in_EX, Load_size_in_EX, Store_size_out_EX, Load_size_out_EX,
-                 RegWrite_out_EX, MemtoReg_out_EX, Branch_out_EX, MemRead_out_EX, MemWrite_out_EX, ALUAddResult_EX, Zero_EX, ALUResult_EX, ReadData2_out_EX, mux2_result_EX);
+module stage_EX (RegWrite_in_EX, MemtoReg_in_EX, Branch_in_EX, MemRead_in_EX, MemWrite_in_EX, RegDst_EX, ALUOp_EX, ALUSrc_EX, 
+                 PCAddResult_EX, ReadData1_EX, ReadData2_in_EX, SignExtResult_EX, rt_EX, rd_EX, RegWrite_out_EX, MemtoReg_out_EX, 
+                 Branch_out_EX, MemRead_out_EX, MemWrite_out_EX, ALUAddResult_EX, Zero_EX, ALUResult_EX, ReadData2_out_EX, 
+                 mux2_result_EX, Clk_in_EX, Clk_out_EX);
 
   input RegWrite_in_EX;
   input MemtoReg_in_EX;
@@ -11,13 +12,12 @@ module stage_EX (RegWrite_in_EX, MemtoReg_in_EX, Branch_in_EX, MemRead_in_EX, Me
   input [5:0] ALUOp_EX;
   input ALUSrc_EX;
   input [31:0] PCAddResult_EX;
-  input [4:0] ReadData1_EX;
-  input [4:0] ReadData2_in_EX;
+  input [31:0] ReadData1_EX;
+  input [31:0] ReadData2_in_EX;
   input [31:0] SignExtResult_EX;
   input [4:0] rt_EX;
   input [4:0] rd_EX;
-  input [1:0] Store_size_in_EX;
-  input [1:0] Load_size_in_EX;
+  input Clk_in_EX;
 
   output RegWrite_out_EX;
   output MemtoReg_out_EX;
@@ -27,14 +27,14 @@ module stage_EX (RegWrite_in_EX, MemtoReg_in_EX, Branch_in_EX, MemRead_in_EX, Me
   output [31:0] ALUAddResult_EX;
   output Zero_EX;
   output [31:0] ALUResult_EX;
-  output ReadData2_out_EX;
-  output mux2_result_EX;
-  output [1:0] Store_size_out_EX;
-  output [1:0] Load_size_out_EX;
+  output [31:0] ReadData2_out_EX;
+  output [4:0] mux2_result_EX;
+  output Clk_out_EX;
 
-  wire SL_result_EX;
-  wire mux1_result_EX;
-  wire ALUControl_EX;
+  wire [31:0] SL_result_EX;
+  wire [31:0] mux1_result_EX;
+  wire [5:0] ALUControl_EX;
+ 
 
   assign RegWrite_out_EX = RegWrite_in_EX;
   assign MemtoReg_out_EX = MemtoReg_in_EX;
@@ -42,8 +42,7 @@ module stage_EX (RegWrite_in_EX, MemtoReg_in_EX, Branch_in_EX, MemRead_in_EX, Me
   assign MemRead_out_EX = MemRead_in_EX;
   assign MemWrite_out_EX = MemWrite_in_EX;
   assign ReadData2_out_EX = ReadData2_in_EX;
-  assign Store_size_out_IDEX = Store_size_in_EX;
-  assign Load_size_out_IDEX = Load_size_out_EX;
+  assign Clk_out_EX = Clk_in_EX;
 
   //ShiftLeft2(in, out);
   ShiftLeft2 c1(SignExtResult_EX, SL_result_EX);
