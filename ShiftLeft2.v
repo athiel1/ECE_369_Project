@@ -6,7 +6,7 @@ module ShiftLeft2(in, out);
     
     output reg [31:0] out;
     
-    always @(*) begin 
+    always @(in) begin 
         out <= in * 4;
     end
 
