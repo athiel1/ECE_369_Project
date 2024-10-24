@@ -3,9 +3,16 @@ NOTES
 Zybooks 2.10: operations tables
 
 NOTES Wednesday, 10/23:
-- take out store_size and load_size?
-- implement jr and jal
-- ask about data memory
+- take out store_size and load_size? (ALMOST DONE)
+- implement jr and jal (ALMOST DONE)
+- ask about data memory (DONE)
+
+TO-DO:
+- implement JAL muxes
+- make a tb for each stage?
+- make a top level of everything
+- create MIPS code with all instructions for testing
+- start testing
 
 
 ///////// Sunday 10/20/24 /////////
