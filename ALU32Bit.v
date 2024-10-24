@@ -53,7 +53,7 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 	// Shift right logical: srl
 
 
-	always @(*) begin
+	always @(ALUControl, A, B) begin
 
 		case (ALUControl)
 			6'b100000: // ADD, Load byte, Store byte, Store half, Load half
