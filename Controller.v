@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite);
+module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite, MemtoReg, RegWrite, JR, JAL);
     //input wire Clk;
     //input wire Rst;
     
@@ -36,8 +36,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
     output reg MemWrite;
     output reg MemtoReg;
     output reg RegWrite;
-    output reg [1:0]Store_size;
-    output reg [1:0]Load_size;
+    output reg JR;
+    output reg JAL;
 
     wire [5:0] operation;
     assign operation = Instruction[31:26];
@@ -63,9 +63,9 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
             MemRead <= 0;
             MemWrite <= 0;
             MemtoReg <= 0;
-            RegWrite <= 0;    
-            Store_size <= 0;
-            Load_size <= 0;
+            RegWrite <= 0;  
+            JR <= 0;  
+            JAL <= 0;
     
 
         $display("operation: %b", operation);
@@ -81,7 +81,12 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;
                     MemtoReg <= 1;
                     RegWrite <= 1;
+                    JR <= 0;
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
+                    if (Instruction[5:0] == 001000) begin
+                        JR <= 1;
+                    end
                 end
                 6'b001000: begin // ADDI
                     RegDst <= 0;      // result goes to register rt [20:16]
@@ -93,6 +98,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;
                     MemtoReg <= 1;
                     RegWrite <= 1;
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
                 end
                 6'b001100: begin // ANDI
@@ -105,6 +112,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;
                     MemtoReg <= 1;
                     RegWrite <= 1;
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
                 end
                 6'b001101: begin // ORI
@@ -117,6 +126,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;
                     MemtoReg <= 1;
                     RegWrite <= 1;
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
                 end
                 6'b001110: begin // XORI
@@ -129,6 +140,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;
                     MemtoReg <= 1;
                     RegWrite <= 1;
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
                 end
                 6'b100011: begin // Load
@@ -141,9 +154,9 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;
                     MemtoReg <= 0;  
                     RegWrite <= 1;
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
-                    Store_size <= 0;    //doesn't matter
-                    Load_size <= 0;     // load 32 bits
                     //Select_size <= 0, 1, 2
                             // 0 - Word [32 bits]
                             // 1 - half [16 bits]
@@ -159,9 +172,9 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 1;
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
-                    Store_size <= 0;    // store 32 bits
-                    Load_size <= 0;     //doesn't matter
                 end
                 6'b101000: begin // Store Byte
                     RegDst <= 0;
@@ -173,9 +186,9 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 1;
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
-                    Store_size <= 2'b10;  // store 8 bits
-                    Load_size <= 0;     // doesn't matter
                 end
                 6'b100000: begin // Load Byte
                     RegDst <= 0;
@@ -187,9 +200,9 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;
                     MemtoReg <= 0;  
                     RegWrite <= 1;
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
-                    Store_size <= 0;    //doesn't matter
-                    Load_size <= 2'b10; // load 8 bits
                 end
                 6'b101001: begin // Store half
                     RegDst <= 0;
@@ -201,9 +214,9 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 1;
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
-                    Store_size <= 2'b01;  //store 16 bits
-                    Load_size <= 0;   // doesn't matter
                 end
                 6'b100001: begin // Load half
                     RegDst <= 0;
@@ -215,9 +228,9 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;
                     MemtoReg <= 0;  
                     RegWrite <= 1;
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= 0;       //doesn't matter
-                    Store_size <= 0;    //doesn't matter
-                    Load_size <= 2'b01; // load 16 bits
                 end
                 6'b000001: begin // BGEZ & BLTZ
                     RegDst <= 0;
@@ -229,6 +242,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;    //has to be 0 so we don't overwrite
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;    //has to be zero so we don't overwrite
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= Branch & Zero;       
                 end
                 6'b000100: begin // BEQ
@@ -241,6 +256,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;    //has to be 0 so we don't overwrite
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;    //has to be zero so we don't overwrite
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= Branch & Zero;       
                 end
                 6'b000101: begin // BNE
@@ -253,6 +270,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;    //has to be 0 so we don't overwrite
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;    //has to be zero so we don't overwrite
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= Branch & Zero;       
                 end
                 6'b000111: begin // BGTZ
@@ -265,6 +284,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;    //has to be 0 so we don't overwrite
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;    //has to be zero so we don't overwrite
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= Branch & Zero;       
                 end
                 6'b000110: begin // BLEZ
@@ -277,6 +298,8 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemWrite <= 0;    //has to be 0 so we don't overwrite
                     MemtoReg <= 0;    //doesn't matter
                     RegWrite <= 0;    //has to be zero so we don't overwrite
+                    JR <= 0;  
+                    JAL <= 0;
                     //PCSrc <= Branch & Zero;       
                 end
                 
@@ -290,7 +313,9 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemRead <= 0;     
                     MemWrite <= 0;    
                     MemtoReg <= 0;    
-                    RegWrite <= 0;    
+                    RegWrite <= 0;   
+                    JR <= 0;  
+                    JAL <= 0; 
                     //PCSrc <= Branch & Zero;
                 end
                 6'b000011: begin // jal  FIXME!
@@ -302,7 +327,9 @@ module Controller(Instruction, RegDst, ALUOp, ALUSrc, Branch, MemRead, MemWrite,
                     MemRead <= 0;     
                     MemWrite <= 1;    
                     MemtoReg <= 0;   
-                    RegWrite <= 0;    
+                    RegWrite <= 0;  
+                    JR <= 0;  
+                    JAL <= 1;  
                     //PCSrc <= Branch & Zero;
                 end
                 
