@@ -30,7 +30,7 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 
 	input [5:0] ALUControl; // control bits for ALU operation
                                 // you need to adjust the bitwidth as needed
-	input [5:0] A;	    // inputs
+	input [31:0] A;	    // inputs
 	input [31:0] B;
 
 	output reg [31:0] ALUResult;	// answer
@@ -82,7 +82,7 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			//FIXME below
 			6'b000001: begin // BGEZ & BLTZ
 				if (B == 1) begin  //BGEZ
-					Zero <= (A >= 0) ? 1'b1 : 1'b0;
+					Zero = (A >= 0) ? 1'b1 : 1'b0;
 				end
 				else if (B == 0) begin  //BLTZ
 					Zero = (A < 0) ? 1'b1 : 1'b0;
@@ -102,7 +102,7 @@ module ALU32Bit(ALUControl, A, B, ALUResult, Zero);
 			6'b000100: // BEQ
     				Zero <= (A == B) ? 1'b1 : 1'b0;
 			6'b000101: // BNE
-   				Zero <= (A != B) ? 1'b1 : 1'b0;
+   				    Zero <= (A != B) ? 1'b1 : 1'b0;
 			6'b000111: // BGTZ
     				Zero <= (A > 0) ? 1'b1 : 1'b0;
 			6'b000110: // BLEZ
