@@ -39,49 +39,49 @@ module ALUControl(ALUOp, funct, ALUControl);
 	end
 	
 	else begin
-	       ALUControl = ALUOp;
-	end
+	    case (ALUOp)
 
-    //6'b101011: // SW
-	//	ALUControl = 6'b100000;
-	//6'b100011: // LW
-	//	ALUControl = 6'b100000;
-	//6'b001000: // ADDI
-	//	ALUControl = 6'b100000;
-	//6'b001100: // ANDI
-	//	ALUControl = 6'b100100;
-	//6'b001101: // ORI
-	//	ALUControl = 6'b100101;
-	//6'b001110: // XORI
-	//	ALUControl = 6'b100110;
-	//6'b001010: // SLTI //
-	//	ALUControl = 6'b101010;
-	//6'b101000: // Store byte
-	//	ALUControl = 6'b100000;
-   	//6'b100000: // Load byte
-	//	ALUControl = 6'b100000;
-	//6'b101001: // Store half
-	//	ALUControl = 6'b100000;
-	//6'b100001: // Load half
-	//	ALUControl = 6'b100000;
-	//6'b000001: // BLTZ & BGEZ //
-	//	ALUControl = 6'b000001;
-	//6'b000100: // BEQ
-	//	ALUControl = 6'b000100;
-	//6'b000101: // BNE
-	//	ALUControl = 6'b000101;
-	//6'b000111: // BGTZ
-	///	ALUControl = 6'b000111;
-	//6'b000110: // BLEZ
-	//	ALUControl = 6'b000110;
+           6'b101011: // SW
+              ALUControl = 6'b100000;
+	       6'b100011: // LW
+	          ALUControl = 6'b100000;
+	       6'b001000: // ADDI
+	          ALUControl = 6'b100000;
+	       6'b001100: // ANDI
+		      ALUControl = 6'b100100;
+	       6'b001101: // ORI
+		      ALUControl = 6'b100101;
+	       6'b001110: // XORI
+		      ALUControl = 6'b100110;
+	       6'b001010: // SLTI //
+		      ALUControl = 6'b101010;
+	       6'b101000: // Store byte
+		      ALUControl = 6'b100000;
+   	        6'b100000: // Load byte
+		      ALUControl = 6'b100000;
+	       6'b101001: // Store half
+		      ALUControl = 6'b100000;
+	       6'b100001: // Load half
+		      ALUControl = 6'b100000;
+	       6'b000001: // BLTZ & BGEZ //
+		      ALUControl = 6'b000001;
+	       6'b000100: // BEQ
+		      ALUControl = 6'b000100;
+	       6'b000101: // BNE
+		      ALUControl = 6'b000101;
+	       6'b000111: // BGTZ
+		      ALUControl = 6'b000111;
+	       6'b000110: // BLEZ
+		      ALUControl = 6'b000110;
 
-	//6'b000010: // J
-	//	ALUControl = 6'b000010;
-	//6'b000011: // JAL
-	//	ALUControl = 6'b000011;
+	       6'b000010: // J
+		      ALUControl = 6'b000010;
+	       6'b000011: // JAL
+		      ALUControl = 6'b000011;
 
-    //endcase
+    endcase
         
+    end
   end
 
 endmodule
