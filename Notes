@@ -694,8 +694,21 @@ endmodule
 
 
 
-			
 
 
+
+
+
+
+
+
+interface DEC_EX {
+  inport data[64]
+cmd [32]
+}
+
+interface DEC_EX_inxt
+EX(DEC_EX_inst)
+DEC(DEC_EX(inst)
 
   
