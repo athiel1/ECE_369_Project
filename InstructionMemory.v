@@ -36,7 +36,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-module InstructionMemory(Address, Instruction); 
+module InstructionMemory(Address, Instruction, Clk_in); 
 
     input [31:0] Address;        // Input Address 
 
@@ -54,7 +54,7 @@ module InstructionMemory(Address, Instruction);
         end
     end
         
-    always @(Address) begin
+    always @(Clk_in) begin
          Instruction <= Memory[Address[8:2]];   
     end
 
