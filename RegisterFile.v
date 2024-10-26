@@ -48,21 +48,21 @@
 // to allow for data multiplexing and setup time.
 ////////////////////////////////////////////////////////////////////////////////
 
-module RegisterFile(Instruction, WriteRegister, WriteData, RegWrite, ReadData1, ReadData2, Clk);
+module RegisterFile(Instruction, WriteRegister, WriteData, RegWrite, ReadData1, ReadData2, Clk_in);
 	//input[4:0] ReadRegister1, ReadRegister2;
 
 	input [31:0]Instruction;
 	input[4:0] WriteRegister;
 	input[31:0] WriteData;
 	input RegWrite;
-	input Clk;
+	input Clk_in;
 	
 	output reg [31:0] ReadData1, ReadData2;
     
 	reg [31:0] RegisterFile[31:0];
 	
     //$display("Read from Register %0d: %h", Instruction[25:21], ReadData1);
-	always @(*) begin // negedge Clk
+	always @(negedge Clk_in) begin // negedge Clk
 		//ReadData1 <= RegisterFile[ReadRegister1];
 		ReadData1 <= RegisterFile[Instruction[25:21]];  // rs
 		//$display("Read from Register %0d: %h", Instruction[25:21], ReadData1);
@@ -71,7 +71,7 @@ module RegisterFile(Instruction, WriteRegister, WriteData, RegWrite, ReadData1, 
 		//$display("Read from Register %0d: %h", Instruction[20:16], ReadData2);
 	end
 	
-	always @(*) begin // posedge Clk
+	always @(posedge Clk_in) begin // posedge Clk
 		if (RegWrite == 1) begin 
 	       		//RegisterFile[WriteRegister] <= WriteData;
 			RegisterFile[WriteRegister] <= WriteData;
