@@ -43,7 +43,7 @@ module ID_EX(PCAddResult_in_IDEX, ReadData1_in_IDEX, ReadData2_in_IDEX, signExte
 
 
 
-  always @(*) begin
+  always @(posedge Clk_in_IDEX) begin
     PCAddResult_out_IDEX <= PCAddResult_in_IDEX;
     ReadData1_out_IDEX = ReadData1_in_IDEX;
     ReadData2_out_IDEX = ReadData2_in_IDEX;
